@@ -1,0 +1,839 @@
+#+TITLE:       Main Google calendar entries
+#+AUTHOR:      Sreela Das
+#+EMAIL:       sreela.das@gmail.com
+#+DESCRIPTION: converted using the ical2org awk script
+#+CATEGORY:    google
+#+STARTUP:     hidestars
+#+STARTUP:     overview
+
+* COMMENT original iCal preamble
+
+* Sreela   Meeting
+:PROPERTIES:
+:ID:       5hegs47v6bed9khsc6lo2p788c@google.com
+:LOCATION: GradeSlam\, 279 Rue Sherbrooke Ouest #410\, Montréal\, QC H2X 1Y2\
+:STATUS:   CONFIRMED
+:END:
+<2019-09-30 Mon 14:00-14:30>
+
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190930T180000Z
+DTEND:20190930T183000Z
+ORGANIZER;CN=faiyaz@gradeslam.org:mailto:faiyaz@gradeslam.org
+UID:5hegs47v6bed9khsc6lo2p788c@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Robert
+ o Cipriani;X-NUM-GUESTS=0:mailto:roberto@gradeslam.org
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=faiyaz
+ @gradeslam.org;X-NUM-GUESTS=0:mailto:faiyaz@gradeslam.org
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CREATED:20190926T170946Z
+DESCRIPTION:
+LAST-MODIFIED:20190926T175038Z
+LOCATION:GradeSlam\, 279 Rue Sherbrooke Ouest #410\, Montréal\, QC H2X 1Y2\
+ , Canada
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Sreela : Meeting
+TRANSP:OPAQUE
+END:VEVENT
+* Sreela and Jeremie call (Google Hangouts)
+:PROPERTIES:
+:ID:       7c7uvg3kb2q1he6dankv5kff2m@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-10-10 Thu 12:00-12:30>
+
+This event has a video call.
+Join  https //meet.google.com/wwo-wube-ykr
++1 786-373-5853 PIN: 966095290#
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20191010T160000Z
+DTEND:20191010T163000Z
+ORGANIZER;CN=jeremie@yazabi.com:mailto:jeremie@yazabi.com
+UID:7c7uvg3kb2q1he6dankv5kff2m@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=jeremi
+ e@yazabi.com;X-NUM-GUESTS=0:mailto:jeremie@yazabi.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CREATED:20190925T154316Z
+DESCRIPTION:This event has a video call.\nJoin: https://meet.google.com/wwo
+ -wube-ykr\n+1 786-373-5853 PIN: 966095290#
+LAST-MODIFIED:20190925T154704Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Sreela and Jeremie call (Google Hangouts)
+TRANSP:OPAQUE
+END:VEVENT
+* GPU Computing with Python [CQ - UdeM]
+:PROPERTIES:
+:ID:       7kukuqrfedlm2f9t1fe6hv6b32i9743sua4ig2uei5m76qqperjmunddfunam7lo79lg
+:LOCATION: Université de Montréal\, Pavillon Claire-McNicoll\, Z-2092900 boul
+:STATUS:   CONFIRMED
+:END:
+<2019-09-27 Fri 09:30-17:00>
+
+To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendar
+
+This event was created from an email that you received in Gmail. https://mail.google.com/mail?extsrc=cal&plid=ACUX6DPcW6OGgXCQqzoXGRpz6mSuDQc1s5HtiXk
+
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190927T133000Z
+DTEND:20190927T210000Z
+ORGANIZER;CN=unknownorganizer@calendar.google.com:mailto:unknownorganizer@c
+ alendar.google.com
+UID:7kukuqrfedlm2f9t1fe6hv6b32i9743sua4ig2uei5m76qqperjmunddfunam7lo79lg
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CLASS:PRIVATE
+CREATED:20190909T210900Z
+DESCRIPTION:To see detailed information for automatically created events li
+ ke this one\, use the official Google Calendar app. https://g.co/calendar\n
+ \nThis event was created from an email that you received in Gmail. https://
+ mail.google.com/mail?extsrc=cal&plid=ACUX6DPcW6OGgXCQqzoXGRpz6mSuDQc1s5HtiX
+ k\n
+LAST-MODIFIED:20190925T134621Z
+LOCATION:Université de Montréal\, Pavillon Claire-McNicoll\, Z-2092900 boul
+ . Edouard-Montpetit\, Montréal\, QC\, CA\, H3T 1J4
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:GPU Computing with Python [CQ - UdeM]
+TRANSP:TRANSPARENT
+END:VEVENT
+* Pole Gym 2
+:PROPERTIES:
+:ID:       61j6cohocpj6ab9n65imab9kchijeb9pcooj4bb369j6cd1ocopm4p9mck@google.com
+:LOCATION: 50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+:STATUS:   CONFIRMED
+:END:
+<2019-10-08 Tue 17:45-18:45>
+
+Dès que vous êtes confortable avec la grimpe et les inversions des deux côtés, avec jambes tendues, joignez-vous à cette classe technique pour des mouvements plus avancés.***Once you are comfortable climbing and inverting on both sides with straight legs, join this technique class to learn more advanced tricks. This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20191008T214500Z
+DTEND:20191008T224500Z
+UID:61j6cohocpj6ab9n65imab9kchijeb9pcooj4bb369j6cd1ocopm4p9mck@google.com
+CREATED:20190925T023819Z
+DESCRIPTION:Dès que vous êtes confortable avec la grimpe et les inversions 
+ des deux côtés\, avec jambes tendues\, joignez-vous à cette classe techniqu
+ e pour des mouvements plus avancés.***Once you are comfortable climbing and
+  inverting on both sides with straight legs\, join this technique class to 
+ learn more advanced tricks.
+LAST-MODIFIED:20190925T023819Z
+LOCATION:50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Pole Gym 2
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H45M0S
+END:VALARM
+END:VEVENT
+* Phone Interview for TD Data Science Position
+:PROPERTIES:
+:ID:       040000008200E00074C5B7101A82E0080000000070DDFB4EAF72D501000000000000000
+:LOCATION: WebEx
+:STATUS:   CONFIRMED
+:END:
+<2019-09-26 Thu 14:30-15:00>
+
+Hi Sreela,
+
+Thanks for finding time to speak with me. Below are the details to call into WebEx.
+
+Looking forward to connecting with you on Thursday.
+
+Sincerely,
+Katherine
+
+
+
+  -- Do not delete or change any of the following text. --
+
+***** Participation Information – Choose one of the 3 options *****
+
+  1) Joining from your computer or mobile device? Click HERE TO JOIN<https://tdbg.webex.com/tdbg/j.php?MTID=m7db89944694272e7bd672fdc0fc58eff> .You can choose to have the meeting call you back so have no need to enter a meeting number (video & screen share optional)
+
+  2) Joining from a TelePresence unit in a conference room? Look at the following information and type it into the TP unit keypad:
+Join from a video system or application
+Dial 800183736@tdbg.webex.com<sip:800183736@tdbg.webex.com>
+You can also dial 173.243.2.68 and enter your meeting number.
+
+
+  3) Joining from just a phone, TAP to dial one of the following numbers (no video or screen share capabilities available):
+Join by phone
+Tap to call in from a mobile device (attendees only)
++1-647-484-1598<tel:%2B1-647-484-1598,,*01*800183736%23%23*01*> Canada Toll (Toronto)
++1-646-992-2010<tel:%2B1-646-992-2010,,*01*800183736%23%23*01*> United States Toll (New York City)
+Global call-in numbers<https://tdbg.webex.com/tdbg/globalcallin.php?MTID=m2a7367d4f31d3eea0b6171b4d1e8c462>
+
+Meeting number (access code): 800 183 736 Meeting password: UCBzu6Ty
+
+  **Important Note: Make sure you have the WebEx app for your smart phone or corporate blackberry installed for easier connection when on the road! Click HERE<https://collaborationhelp.cisco.com/article/en-us/nowvmhw> for additional information on installing the Cisco WebEx application on your device**
+
+  Can't join the meeting?<https://collaborationhelp.cisco.com/article/en-us/nowvmhw>
+
+  IMPORTANT NOTICE: This meeting, including any audio, the attendee list and materials displayed during the meeting, may be recorded for training or other legitimate business purposes of TD Bank Group (TDBG). This may include personal information, which will be managed by TDBG in accordance with applicable Privacy laws. Recordings will be available for playback and may be provided to the host, other participants and non-participants as appropriate. You may raise any concerns you have about a meeting that is being recorded with the meeting host.
+
+
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190926T183000Z
+DTEND:20190926T190000Z
+ORGANIZER;CN=katherine.heighington@td.com:mailto:katherine.heighington@td.c
+ om
+UID:040000008200E00074C5B7101A82E0080000000070DDFB4EAF72D501000000000000000
+ 010000000ED00C89FB210A341B7E9037EFE26BDE7
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CREATED:20190924T121247Z
+DESCRIPTION:Hi Sreela\,\n\nThanks for finding time to speak with me. Below 
+ are the details to call into WebEx.\n\nLooking forward to connecting with y
+ ou on Thursday.\n\nSincerely\,\nKatherine\n\n\n\n  -- Do not delete or chan
+ ge any of the following text. --\n\n***** Participation Information – Choos
+ e one of the 3 options *****\n\n  1) Joining from your computer or mobile d
+ evice? Click HERE TO JOIN<https://tdbg.webex.com/tdbg/j.php?MTID=m7db899446
+ 94272e7bd672fdc0fc58eff> .You can choose to have the meeting call you back 
+ so have no need to enter a meeting number (video & screen share optional)\n
+ \n  2) Joining from a TelePresence unit in a conference room? Look at the f
+ ollowing information and type it into the TP unit keypad:\nJoin from a vide
+ o system or application\nDial 800183736@tdbg.webex.com<sip:800183736@tdbg.w
+ ebex.com>\nYou can also dial 173.243.2.68 and enter your meeting number.\n\
+ n\n  3) Joining from just a phone\, TAP to dial one of the following number
+ s (no video or screen share capabilities available):\nJoin by phone\nTap to
+  call in from a mobile device (attendees only)\n+1-647-484-1598<tel:%2B1-64
+ 7-484-1598\,\,*01*800183736%23%23*01*> Canada Toll (Toronto)\n+1-646-992-20
+ 10<tel:%2B1-646-992-2010\,\,*01*800183736%23%23*01*> United States Toll (Ne
+ w York City)\nGlobal call-in numbers<https://tdbg.webex.com/tdbg/globalcall
+ in.php?MTID=m2a7367d4f31d3eea0b6171b4d1e8c462>\n\nMeeting number (access co
+ de): 800 183 736 Meeting password: UCBzu6Ty\n\n  **Important Note: Make sur
+ e you have the WebEx app for your smart phone or corporate blackberry insta
+ lled for easier connection when on the road! Click HERE<https://collaborati
+ onhelp.cisco.com/article/en-us/nowvmhw> for additional information on insta
+ lling the Cisco WebEx application on your device**\n\n  Can't join the meet
+ ing?<https://collaborationhelp.cisco.com/article/en-us/nowvmhw>\n\n  IMPORT
+ ANT NOTICE: This meeting\, including any audio\, the attendee list and mate
+ rials displayed during the meeting\, may be recorded for training or other 
+ legitimate business purposes of TD Bank Group (TDBG). This may include pers
+ onal information\, which will be managed by TDBG in accordance with applica
+ ble Privacy laws. Recordings will be available for playback and may be prov
+ ided to the host\, other participants and non-participants as appropriate. 
+ You may raise any concerns you have about a meeting that is being recorded 
+ with the meeting host.\n\n
+LAST-MODIFIED:20190924T133121Z
+LOCATION:WebEx
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Phone Interview for TD Data Science Position
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:295213027
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"WebEx"\,"LocationAnnotation":""\,"Lo
+ cationUri":""\,"LocationStreet":""\,"LocationCity":""\,"LocationState":""\,
+ "LocationCountry":""\,"LocationPostalCode":""\,"LocationFullAddress":""}]
+END:VEVENT
+* Sreela   Internship Discussion
+:PROPERTIES:
+:ID:       5gt1dg6cqe229m35ecndh17ltn@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-09-24 Tue 13:30-14:00>
+
+Meeting via phone call
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190924T173000Z
+DTEND:20190924T180000Z
+ORGANIZER;CN=faiyaz@gradeslam.org:mailto:faiyaz@gradeslam.org
+UID:5gt1dg6cqe229m35ecndh17ltn@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=faiyaz
+ @gradeslam.org;X-NUM-GUESTS=0:mailto:faiyaz@gradeslam.org
+CREATED:20190923T210917Z
+DESCRIPTION:Meeting via phone call
+LAST-MODIFIED:20190923T210935Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Sreela : Internship Discussion
+TRANSP:OPAQUE
+END:VEVENT
+* Sreela and Jeremie call (Google Hangouts)
+:PROPERTIES:
+:ID:       5ucrk7626k6u31ddclusnjmjot@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-09-24 Tue 15:00-15:30>
+
+This event has a video call.
+Join  https //meet.google.com/kpq-ereg-imp
++1 470-635-0108 PIN: 352120444#
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190924T190000Z
+DTEND:20190924T193000Z
+ORGANIZER;CN=jeremie@yazabi.com:mailto:jeremie@yazabi.com
+UID:5ucrk7626k6u31ddclusnjmjot@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=jeremi
+ e@yazabi.com;X-NUM-GUESTS=0:mailto:jeremie@yazabi.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CREATED:20190923T153249Z
+DESCRIPTION:This event has a video call.\nJoin: https://meet.google.com/kpq
+ -ereg-imp\n+1 470-635-0108 PIN: 352120444#
+LAST-MODIFIED:20190923T153656Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Sreela and Jeremie call (Google Hangouts)
+TRANSP:OPAQUE
+END:VEVENT
+* Coffee & Code - Data Science edition @ Code & Cafe
+:PROPERTIES:
+:ID:       cphj6d1p6os30bb564p3gb9kc8rm4b9pclgmcb9h70smce1p74q6cphgcg@google.com
+:LOCATION: 4304 Rue Saint-Denis\, Montréal\, QC
+:STATUS:   CONFIRMED
+:END:
+<2019-09-28 Sat 14:00-16:00>
+
+**It's everything you've loved about our classic coding C&C sessions, with a focus on data science!**
+
+The purpose is to get out of the house and focus on data science related coding (eg. Python, R, data cleaning, etc), or get help from others if you're stuck on something.
+
+Arrive or leave when you like, but please arrive before 14h30 if you'd like to participate in a quick Show & Tell to get feedback or help on a project you're working on.
+
+We have one rule: don't disturb someone working with headphones on. We may set a pomodoro timer to help our focus. Our regulars may not RSVP so the number of participants isn't representative -- come anyway! :)
+
+Don't forget to bring your headset if you like to drown your head in dubstep or if you watch video material for your courses.
+
+We are set up at one of the big white tables in the center, look for me with long black hair and a laptop with lots of stickers on it.
+
+Code & Café works like an anti-café, and for 9$ you can stay 3 hours with access to unlimited coffee & home-made cookies and sweets. However, if you prefer, you can also simply pay per consumption.
+
+Hope to see you there!
+
+Judy
+
+Details: https://www.meetup.com/pitonneux/events/crrlhryzmblc/
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190928T180000Z
+DTEND:20190928T200000Z
+UID:cphj6d1p6os30bb564p3gb9kc8rm4b9pclgmcb9h70smce1p74q6cphgcg@google.com
+CREATED:20190921T223224Z
+DESCRIPTION:**It's everything you've loved about our classic coding C&C ses
+ sions\, with a focus on data science!**\n\nThe purpose is to get out of the
+  house and focus on data science related coding (eg. Python\, R\, data clea
+ ning\, etc)\, or get help from others if you're stuck on something.\n\nArri
+ ve or leave when you like\, but please arrive before 14h30 if you'd like to
+  participate in a quick Show & Tell to get feedback or help on a project yo
+ u're working on.\n\nWe have one rule: don't disturb someone working with he
+ adphones on. We may set a pomodoro timer to help our focus. Our regulars ma
+ y not RSVP so the number of participants isn't representative -- come anywa
+ y! :)\n\nDon't forget to bring your headset if you like to drown your head 
+ in dubstep or if you watch video material for your courses.\n\nWe are set u
+ p at one of the big white tables in the center\, look for me with long blac
+ k hair and a laptop with lots of stickers on it.\n\nCode & Café works like 
+ an anti-café\, and for 9$ you can stay 3 hours with access to unlimited cof
+ fee & home-made cookies and sweets. However\, if you prefer\, you can also 
+ simply pay per consumption.\n\nHope to see you there!\n\nJudy\n\nDetails: h
+ ttps://www.meetup.com/pitonneux/events/crrlhryzmblc/
+LAST-MODIFIED:20190921T223225Z
+LOCATION:4304 Rue Saint-Denis\, Montréal\, QC
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Coffee & Code - Data Science edition @ Code & Cafe
+TRANSP:OPAQUE
+END:VEVENT
+* Coffee & Code @ Code & Cafe
+:PROPERTIES:
+:ID:       7kukuqrfedlm2f9t48fmlf32ld8e22gsei5773sflt7h1nokpthe66uket395de4ikdg
+:LOCATION: Code & Café\, 4304 Rue Saint-Denis\, Montréal\, QC\, ca\, H2J 2K8
+:STATUS:   CONFIRMED
+:END:
+<2019-09-23 Mon 18:00-20:00>
+
+To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendar
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190923T220000Z
+DTEND:20190924T000000Z
+ORGANIZER;CN=unknownorganizer@calendar.google.com:mailto:unknownorganizer@c
+ alendar.google.com
+UID:7kukuqrfedlm2f9t48fmlf32ld8e22gsei5773sflt7h1nokpthe66uket395de4ikdg
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CLASS:PRIVATE
+CREATED:20190921T222137Z
+DESCRIPTION:To see detailed information for automatically created events li
+ ke this one\, use the official Google Calendar app. https://g.co/calendar
+LAST-MODIFIED:20190921T222327Z
+LOCATION:Code & Café\, 4304 Rue Saint-Denis\, Montréal\, QC\, ca\, H2J 2K8
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Coffee & Code @ Code & Cafe
+TRANSP:TRANSPARENT
+END:VEVENT
+* Coffee & Code @ Code & Cafe
+:PROPERTIES:
+:ID:       c8r3ceb66ss32bb364sjib9k68p36bb1c5h3ab9j61i6ap1nc4p6ad1m6c@google.com
+:LOCATION: 4304 Rue Saint-Denis\, Montréal\, QC
+:STATUS:   CONFIRMED
+:END:
+<2019-09-23 Mon 18:00-20:00>
+
+**You've requested an evening coding meet up similar to our regular afternoon meet ups so it's here!**
+
+The purpose is to get out of the house and focus on work or study in a group, or get help from others if you're stuck on something. Arrive or leave when you like, but please arrive before 18h30 if you'd like to participate in a quick Show & Tell to get feedback or help on a project you're working on. We have one rule: don't disturb someone working with headphones on. We may set a pomodoro timer to help our focus. Our regulars may not RSVP so the number of participants isn't representative -- come anyway! :)
+
+Don't forget to bring your headset if you like to drown your head in dubstep or if you watch video material for your courses.
+
+We are set up in the glass room, look for me with long black hair and a laptop with lots of stickers.
+
+Code & Café works like an anti-café, and for 9$ you can stay 3 hours with access to unlimited coffee & home-made cookies and sweets. However, if you prefer, you can also simply pay per consumption.
+
+Hope to see you there!
+
+Judy
+
+Details: https://www.meetup.com/pitonneux/events/hgxrvqyzmbfc/
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190923T220000Z
+DTEND:20190924T000000Z
+UID:c8r3ceb66ss32bb364sjib9k68p36bb1c5h3ab9j61i6ap1nc4p6ad1m6c@google.com
+CREATED:20190921T222222Z
+DESCRIPTION:**You've requested an evening coding meet up similar to our reg
+ ular afternoon meet ups so it's here!**\n\nThe purpose is to get out of the
+  house and focus on work or study in a group\, or get help from others if y
+ ou're stuck on something. Arrive or leave when you like\, but please arrive
+  before 18h30 if you'd like to participate in a quick Show & Tell to get fe
+ edback or help on a project you're working on. We have one rule: don't dist
+ urb someone working with headphones on. We may set a pomodoro timer to help
+  our focus. Our regulars may not RSVP so the number of participants isn't r
+ epresentative -- come anyway! :)\n\nDon't forget to bring your headset if y
+ ou like to drown your head in dubstep or if you watch video material for yo
+ ur courses.\n\nWe are set up in the glass room\, look for me with long blac
+ k hair and a laptop with lots of stickers.\n\nCode & Café works like an ant
+ i-café\, and for 9$ you can stay 3 hours with access to unlimited coffee & 
+ home-made cookies and sweets. However\, if you prefer\, you can also simply
+  pay per consumption.\n\nHope to see you there!\n\nJudy\n\nDetails: https:/
+ /www.meetup.com/pitonneux/events/hgxrvqyzmbfc/
+LAST-MODIFIED:20190921T222222Z
+LOCATION:4304 Rue Saint-Denis\, Montréal\, QC
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Coffee & Code @ Code & Cafe
+TRANSP:OPAQUE
+END:VEVENT
+* Pole Gym 2
+:PROPERTIES:
+:ID:       6oq3ccb474p3ab9o6soj0b9k70sj6bb264q62bb165im2dj2cpj38pj4c8@google.com
+:LOCATION: 50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+:STATUS:   CONFIRMED
+:END:
+<2019-09-24 Tue 17:45-18:45>
+
+Dès que vous êtes confortable avec la grimpe et les inversions des deux côtés, avec jambes tendues, joignez-vous à cette classe technique pour des mouvements plus avancés.***Once you are comfortable climbing and inverting on both sides with straight legs, join this technique class to learn more advanced tricks. This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190924T214500Z
+DTEND:20190924T224500Z
+UID:6oq3ccb474p3ab9o6soj0b9k70sj6bb264q62bb165im2dj2cpj38pj4c8@google.com
+CREATED:20190920T163047Z
+DESCRIPTION:Dès que vous êtes confortable avec la grimpe et les inversions 
+ des deux côtés\, avec jambes tendues\, joignez-vous à cette classe techniqu
+ e pour des mouvements plus avancés.***Once you are comfortable climbing and
+  inverting on both sides with straight legs\, join this technique class to 
+ learn more advanced tricks.
+LAST-MODIFIED:20190920T163047Z
+LOCATION:50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Pole Gym 2
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H45M0S
+END:VALARM
+END:VEVENT
+* Coffee & Code - Data Science edition @ Code & Cafe
+:PROPERTIES:
+:ID:       cgq36e9o6csm2b9p6sp36b9k65j3gb9o6cs30bb2c9i68dpnc8s6adpjc8@google.com
+:LOCATION: 4304 Rue Saint-Denis\, Montréal\, QC
+:STATUS:   CONFIRMED
+:END:
+<2019-09-21 Sat 14:00-16:00>
+
+**It's everything you've loved about our classic coding C&C sessions, with a focus on data science!**
+
+The purpose is to get out of the house and focus on data science related coding (eg. Python, R, data cleaning, etc), or get help from others if you're stuck on something.
+
+Arrive or leave when you like, but please arrive before 14h30 if you'd like to participate in a quick Show & Tell to get feedback or help on a project you're working on.
+
+We have one rule: don't disturb someone working with headphones on. We may set a pomodoro timer to help our focus. Our regulars may not RSVP so the number of participants isn't representative -- come anyway! :)
+
+Don't forget to bring your headset if you like to drown your head in dubstep or if you watch video material for your courses.
+
+We are set up at one of the big white tables in the center, look for me with long black hair and a laptop with lots of stickers on it.
+
+Code & Café works like an anti-café, and for 9$ you can stay 3 hours with access to unlimited coffee & home-made cookies and sweets. However, if you prefer, you can also simply pay per consumption.
+
+Hope to see you there!
+
+Judy
+
+Details: https://www.meetup.com/pitonneux/events/crrlhryzmbcc/
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190921T180000Z
+DTEND:20190921T200000Z
+UID:cgq36e9o6csm2b9p6sp36b9k65j3gb9o6cs30bb2c9i68dpnc8s6adpjc8@google.com
+CREATED:20190919T211058Z
+DESCRIPTION:**It's everything you've loved about our classic coding C&C ses
+ sions\, with a focus on data science!**\n\nThe purpose is to get out of the
+  house and focus on data science related coding (eg. Python\, R\, data clea
+ ning\, etc)\, or get help from others if you're stuck on something.\n\nArri
+ ve or leave when you like\, but please arrive before 14h30 if you'd like to
+  participate in a quick Show & Tell to get feedback or help on a project yo
+ u're working on.\n\nWe have one rule: don't disturb someone working with he
+ adphones on. We may set a pomodoro timer to help our focus. Our regulars ma
+ y not RSVP so the number of participants isn't representative -- come anywa
+ y! :)\n\nDon't forget to bring your headset if you like to drown your head 
+ in dubstep or if you watch video material for your courses.\n\nWe are set u
+ p at one of the big white tables in the center\, look for me with long blac
+ k hair and a laptop with lots of stickers on it.\n\nCode & Café works like 
+ an anti-café\, and for 9$ you can stay 3 hours with access to unlimited cof
+ fee & home-made cookies and sweets. However\, if you prefer\, you can also 
+ simply pay per consumption.\n\nHope to see you there!\n\nJudy\n\nDetails: h
+ ttps://www.meetup.com/pitonneux/events/crrlhryzmbcc/
+LAST-MODIFIED:20190919T211058Z
+LOCATION:4304 Rue Saint-Denis\, Montréal\, QC
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Coffee & Code - Data Science edition @ Code & Cafe
+TRANSP:OPAQUE
+END:VEVENT
+* R&D Partners
+:PROPERTIES:
+:ID:       6osj0pj16gpj4b9m68rjeb9k6ksm8b9oc4sjab9g60qmccb374s6cdpocc@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-09-19 Thu 14:00-14:30>
+
+This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190919T180000Z
+DTEND:20190919T183000Z
+UID:6osj0pj16gpj4b9m68rjeb9k6ksm8b9oc4sjab9g60qmccb374s6cdpocc@google.com
+CREATED:20190918T211447Z
+DESCRIPTION:
+LAST-MODIFIED:20190918T211447Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:R&D Partners
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+* Pole Gym 2
+:PROPERTIES:
+:ID:       clh3eo9p6lh3ab9pchhmcb9k6hi32b9o71h32bb3c4q6ccr470o32p9g6c@google.com
+:LOCATION: 50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+:STATUS:   CONFIRMED
+:END:
+<2019-10-01 Tue 17:45-18:45>
+
+Dès que vous êtes confortable avec la grimpe et les inversions des deux côtés, avec jambes tendues, joignez-vous à cette classe technique pour des mouvements plus avancés.***Once you are comfortable climbing and inverting on both sides with straight legs, join this technique class to learn more advanced tricks. This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20191001T214500Z
+DTEND:20191001T224500Z
+UID:clh3eo9p6lh3ab9pchhmcb9k6hi32b9o71h32bb3c4q6ccr470o32p9g6c@google.com
+CREATED:20190918T025609Z
+DESCRIPTION:Dès que vous êtes confortable avec la grimpe et les inversions 
+ des deux côtés\, avec jambes tendues\, joignez-vous à cette classe techniqu
+ e pour des mouvements plus avancés.***Once you are comfortable climbing and
+  inverting on both sides with straight legs\, join this technique class to 
+ learn more advanced tricks.
+LAST-MODIFIED:20190918T025610Z
+LOCATION:50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Pole Gym 2
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H45M0S
+END:VALARM
+END:VEVENT
+* Research Internship Meeting   Sreela Das
+:PROPERTIES:
+:ID:       0g08f4kd702b3llr9ukjdceuc3@google.com
+:LOCATION: GradeSlam\, 279 Rue Sherbrooke Ouest #410\, Montréal\, QC H2X 1Y2\
+:STATUS:   CONFIRMED
+:END:
+<2019-09-18 Wed 14:00-14:30>
+
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190918T180000Z
+DTEND:20190918T183000Z
+ORGANIZER;CN=faiyaz@gradeslam.org:mailto:faiyaz@gradeslam.org
+UID:0g08f4kd702b3llr9ukjdceuc3@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=faiyaz
+ @gradeslam.org;X-NUM-GUESTS=0:mailto:faiyaz@gradeslam.org
+CREATED:20190917T193958Z
+DESCRIPTION:
+LAST-MODIFIED:20190917T194859Z
+LOCATION:GradeSlam\, 279 Rue Sherbrooke Ouest #410\, Montréal\, QC H2X 1Y2\
+ , Canada
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Research Internship Meeting : Sreela Das
+TRANSP:OPAQUE
+END:VEVENT
+* Code et café
+:PROPERTIES:
+:ID:       68rm6eb66grjcbb66cr62b9k70s3abb26gs30b9k64qj6pj5coo62p34co@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-09-17 Tue 14:00-15:00>
+
+This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190917T180000Z
+DTEND:20190917T190000Z
+UID:68rm6eb66grjcbb66cr62b9k70s3abb26gs30b9k64qj6pj5coo62p34co@google.com
+CREATED:20190917T024112Z
+DESCRIPTION:
+LAST-MODIFIED:20190917T024112Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Code et café
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+* EUS Common room
+:PROPERTIES:
+:ID:       64ojecpp71j6ab9p75i38b9k64o64bb16lgm8b9l64pjecj3cop3ad1nc4@google.com
+:LOCATION: McGill University - McConnell Engineering Building\, 3480 Rue Univ
+:STATUS:   CONFIRMED
+:END:
+<2019-09-18 Wed 11:30-12:30>
+
+This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190918T153000Z
+DTEND:20190918T163000Z
+UID:64ojecpp71j6ab9p75i38b9k64o64bb16lgm8b9l64pjecj3cop3ad1nc4@google.com
+CREATED:20190916T190251Z
+DESCRIPTION:
+LAST-MODIFIED:20190917T020207Z
+LOCATION:McGill University - McConnell Engineering Building\, 3480 Rue Univ
+ ersity\, Montréal\, QC H3A 2K6\, Canada
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:EUS Common room
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+* Pole Gym 1-2
+:PROPERTIES:
+:ID:       6cpj4ohl69hjcb9h6krmab9kcgp6cb9o6so38b9k75i30cr264q36dpi6g@google.com
+:LOCATION: 50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+:STATUS:   CONFIRMED
+:END:
+<2019-09-16 Mon 20:15-21:15>
+
+Maintenant que vos bases sont acquises, mettez-vous au défi! Découvrez des mouvements aériens et inversés sur la pole dans cette classe axée sur la technique. Une série d’exercices de conditionnement s’intègre au réchauffement pour renforcer et préparer votre corps aux mouvements à venir! Aucune chorégraphie. *** Now that your basic skills are acquired, challenge yourself! Discover aerial and inverted movements on the pole in this technique-focussed class. The conditioning warm-up will strenghten and pump up your body for what’s to come! No choreography. This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190917T001500Z
+DTEND:20190917T011500Z
+UID:6cpj4ohl69hjcb9h6krmab9kcgp6cb9o6so38b9k75i30cr264q36dpi6g@google.com
+CREATED:20190916T011548Z
+DESCRIPTION:Maintenant que vos bases sont acquises\, mettez-vous au défi! D
+ écouvrez des mouvements aériens et inversés sur la pole dans cette classe a
+ xée sur la technique. Une série d’exercices de conditionnement s’intègre au
+  réchauffement pour renforcer et préparer votre corps aux mouvements à veni
+ r! Aucune chorégraphie. *** Now that your basic skills are acquired\, chall
+ enge yourself! Discover aerial and inverted movements on the pole in this t
+ echnique-focussed class. The conditioning warm-up will strenghten and pump 
+ up your body for what’s to come! No choreography.
+LAST-MODIFIED:20190916T011548Z
+LOCATION:50\, rue Saint-Jacques\, Montréal\, QC H2Y 1L2
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Pole Gym 1-2
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H45M0S
+END:VALARM
+END:VEVENT
+* Pickup TV and stuff
+:PROPERTIES:
+:ID:       70ojaohp6thjib9k60s3ab9kc4o3gbb170o68b9occpjgor470q30p1i6g@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-09-15 Sun 14:00-15:00>
+
+This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190915T180000Z
+DTEND:20190915T190000Z
+UID:70ojaohp6thjib9k60s3ab9kc4o3gbb170o68b9occpjgor470q30p1i6g@google.com
+CREATED:20190915T003551Z
+DESCRIPTION:
+LAST-MODIFIED:20190915T003551Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Pickup TV and stuff
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+* Group Meeting
+:PROPERTIES:
+:ID:       6dgj8p9g68r64b9kcdj3ib9k60p3ab9o61j6cb9mc4r34dr571hm8ob36s@google.com
+:LOCATION: 305A
+:STATUS:   CONFIRMED
+:END:
+<2019-05-29 Wed 10:30-11:30 +1w>--<2019-09-18 Wed>
+
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART;TZID=America/Toronto:20190529T103000
+DTEND;TZID=America/Toronto:20190529T113000
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20190918T035959Z
+EXDATE;TZID=America/Toronto:20190710T103000
+UID:6dgj8p9g68r64b9kcdj3ib9k60p3ab9o61j6cb9mc4r34dr571hm8ob36s@google.com
+CREATED:20190529T123929Z
+DESCRIPTION:
+LAST-MODIFIED:20190913T004943Z
+LOCATION:305A
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Group Meeting
+TRANSP:OPAQUE
+END:VEVENT
+* IPSF Worlds
+:PROPERTIES:
+:ID:       6oojap34ckqj6bb4cgojcb9kc8r66bb1c9im2b9n64rm2chp74pjid9i6k@google.com
+:STATUS:   CONFIRMED
+:END:
+<2019-10-05 Sat 10:00>--<2019-10-06 Sun 21:00>
+
+This is an event reminder
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20191005T140000Z
+DTEND:20191007T010000Z
+UID:6oojap34ckqj6bb4cgojcb9kc8r66bb1c9im2b9n64rm2chp74pjid9i6k@google.com
+CREATED:20190911T001737Z
+DESCRIPTION:
+LAST-MODIFIED:20190911T001741Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:IPSF Worlds
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+* Make Montreal better through data science
+:PROPERTIES:
+:ID:       7kukuqrfedlm2f9tntegb98mjehmn0p2jv7hmprc9maes8u1ttuuh8tdo9bch2cj5i1g
+:LOCATION: Notman House\, 51 Sherbrooke W.\, Montreal\, QC\, ca\, H2X 1X2
+:STATUS:   CONFIRMED
+:END:
+<2019-09-17 Tue 19:00-21:00>
+
+To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendar
+** COMMENT original iCal entry
+ 
+BEGIN:VEVENT
+DTSTART:20190917T230000Z
+DTEND:20190918T010000Z
+ORGANIZER;CN=unknownorganizer@calendar.google.com:mailto:unknownorganizer@c
+ alendar.google.com
+UID:7kukuqrfedlm2f9tntegb98mjehmn0p2jv7hmprc9maes8u1ttuuh8tdo9bch2cj5i1g
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=sreela
+ .das@gmail.com;X-NUM-GUESTS=0:mailto:sreela.das@gmail.com
+CLASS:PRIVATE
+CREATED:20190909T032639Z
+DESCRIPTION:To see detailed information for automatically created events li
+ ke this one\, use the official Google Calendar app. https://g.co/calendar
+LAST-MODIFIED:20190909T032844Z
+LOCATION:Notman House\, 51 Sherbrooke W.\, Montreal\, QC\, ca\, H2X 1X2
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Make Montreal better through data science
+TRANSP:TRANSPARENT
+END:VEVENT
