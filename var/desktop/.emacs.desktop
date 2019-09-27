@@ -1,0 +1,31 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Fri Sep 27 15:58:06 2019
+;; Desktop file format version 208
+;; Emacs version 26.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (23950 27086 203088 285000) (desktop . "208") "sreela@sreela" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font-backend xft x) (font . "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") (font-parameter . "Monospace 13") (border-width . 0) (internal-border-width . 0) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#b2b2b2") (background-color . "#292b2e") (mouse-color . "#ffffff") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground . "#ffffff") (scroll-bar-background . "#3b3b3e") (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 0) (scroll-bar-height . 0) (alpha) (no-focus-on-map) (no-accept-focus) (fullscreen . maximized) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#e3dedd") (sticky) (environment) (modeline . t) (unsplittable) (frameset--id . "1379-C38E-8ECA-9C53") (frameset--mini t . t) (display . ":0.0") (icon-name) (explicit-name) (height . 46) (width . 190) (left . 0) (top . 34)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 84) (min-pixel-width . 100) (min-pixel-height-ignore . 63) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 21) (min-pixel-width-safe . 20)) leaf (pixel-width . 1920) (pixel-height . 957) (total-width . 192) (total-height . 46) (normal-height . 1.0) (normal-width . 1.0) (buffer "init.el" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 1) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("tab" "speed" "speedba" "Cogan" "@Comm" "@C" "@" "Anto" "Comm" "Observa" "punch" "meaning" "\"\\" "{\\" "$e" "$"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("/home/sreela/Documents/msc_thesis/thesis.bib" "/home/sreela/Documents/msc_thesis/conclusions.tex" "/home/sreela/Documents/msc_thesis/rootfiles/skymap.py" "/home/sreela/Documents/msc_thesis/python/test.py" "/home/sreela/Documents/msc_thesis/python/save_output.py" "/home/sreela/Documents/msc_thesis/python/run.py" "/home/sreela/Documents/msc_thesis/thesis.bib" "/home/sreela/Documents/gradeslam/gradeslam.py" "/home/sreela/Documents/gradeslam/sql.txt" "/home/sreela/Documents/gradeslam/gradeslam.py" "/home/sreela/Documents/msc_thesis/analysis.tex" "/home/sreela/Documents/msc_thesis/results.tex" "/home/sreela/Documents/msc_thesis/thesis.bib" "/home/sreela/Documents/msc_thesis/simulation.tex" "/home/sreela/Documents/msc_thesis/main.tex" "/home/sreela/Documents/msc_thesis/fixes.org" "/home/sreela/Documents/msc_thesis/main.tex" "/home/sreela/.emacs.d/init.el" "/home/sreela/Documents/CV/2019_09_transit/prompt.org" "/home/sreela/Documents/CV/2019_07_jobs/main.tex" "/home/sreela/Documents/CV/2019_08_cover/main.tex" "/home/sreela/Documents/CV/2019_07_jobs/main.tex" "/home/sreela/Documents/CV/2019_08_CERN/main.tex" "/home/sreela/Documents/msc_thesis/main.tex" "/home/sreela/.emacs.d/init.el" "/home/sreela/Documents/CV/2019_03_Europe_PhDs/main.tex" "/home/sreela/Documents/CV/2019_03_Europe_PhDs/CVMarch2019.tex" "/home/sreela/Documents/news_proj/fetch_news.py" "~/Documents/news_proj" "/home/sreela/.bashrc" "/home/sreela/Documents/msc_thesis/rootfiles/fu_disp.py" "/home/sreela/Documents/msc_thesis/rootfiles/energy_fit.py" "/home/sreela/Documents/msc_thesis/rootfiles/skymap.py" "/home/sreela/.emacs.d/init.el" "/home/sreela/.bashrc" "/home/sreela/backup/.bashrc" "/home/sreela/.emacs.d/elpa/yasnippet-20190724.1204/snippets/latex-mode/wrapinquotes.yasnippet" "/home/sreela/.emacs.d/elpa/yasnippet-20190724.1204/snippets/latex-mode/wrapinlr.yasnippet" "/home/sreela/.emacs.d/elpa/yasnippet-20190724.1204/snippets/latex-mode/wrapinparen.yasnippet" "/home/sreela/.emacs.d/elpa/yasnippet-20190724.1204/snippets/latex-mode/wrapinlr.yasnippet" "/home/sreela/.emacs.d/elpa/yasnippet-20190724.1204/snippets/latex-mode/wrapinquotes.yasnippet" "/home/sreela/Documents/msc_thesis/analysis.tex" "/home/sreela/.emacs.d/init.el" "/home/sreela/Documents/msc_thesis/analysis.tex" "/home/sreela/.emacs" "/home/sreela/Documents/msc_thesis/analysis.tex" "~/.emacs"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/home/sreela/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(eldoc-mode TeX-PDF-mode override-global-mode flx-ido-mode flyspell-mode yas-minor-mode hs-minor-mode company-mode projectile-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 23950 27055 465533 509000) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((mark-ring nil)))
+
