@@ -1,0 +1,8 @@
+# exclude everything except directory foo/bar
+auctex-12.1.tar.gz
+*~
+session*
+var/backup/
+elpa/*
+emacs/*
+*desktop.lock
