@@ -13,15 +13,15 @@
   (package-refresh-contents))
 ;; list the packages you want
 (setq package-list
-      '(auctex bind-key company elpy epl flx flx-ido flycheck jedi let-alist move-text multiple-cursors pdf-tools pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      '(auctex bind-key company elpy epl flx flx-ido flycheck jedi let-alist magit move-text multiple-cursors pdf-tools pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
 (setq package-enable-at-startup nil)
 
-;; (add-to-list 'load-path "~/.emacs.d/elpa/auctex-12.1")
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
-;; (load "latex.el" nil t t)
+(add-to-list 'load-path "~/.emacs.d/elpa/auctex-12.1")
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(load "latex.el" nil t t)
 
 ;; fetch the list of packages available 
 (unless package-archive-contents
@@ -41,7 +41,6 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'org)
- SCHEDULED: <2019-09-30 Mon>
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -184,6 +183,13 @@
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "C-x g") 'magit-status)
+
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;        Org mode        ;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -191,13 +197,13 @@
                              "~/Documents/Data4Good/d4g.org" 
                              "~/Documents/msc_thesis/fixes.org"))
 
-(require 'ox-latex)
-(unless (boundp 'org-latex-classes)
-  (setq org-latex-classes nil))
-(add-to-list 'org-latex-classes
-             '("article"
-               "\\documentclass{article}"
-               ("\\section{%s}" . "\\section*{%s}")))
+;; (require 'ox-latex)
+;; (unless (boundp 'org-latex-classes)
+;;   (setq org-latex-classes nil))
+;; (add-to-list 'org-latex-classes
+;;              '("article"
+;;                "\\documentclass{article}"
+;;                ("\\section{%s}" . "\\section*{%s}")))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -373,8 +379,6 @@
 
 (global-set-key (kbd "C-S-t") 'tramp-cleanup-all-connections)
 
-
-;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 
 (custom-set-variables
