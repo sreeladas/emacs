@@ -271,7 +271,7 @@
   (setq-default LaTeX-clean-intermediate-suffixes t)
   ;; ##### changing default master file from current file to main.tex
   (setq-default TeX-master nil)
-  ;; (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
+  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
   (defun latex-do-everything ()
     "Save the buffer and run 'TeX-command-run-all'."
