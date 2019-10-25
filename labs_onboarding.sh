@@ -91,7 +91,7 @@ alias dbuild='docker build -t api:latest .'
 alias drun='docker run -p 8080:8000 api:latest'
 alias drun_with_volumes='docker run -p 8080:8000 -v $PWD/labs-products api:latest'
 alias dps='docker ps'
-alias dexec='function docker_exec(){docker exec -it $1 /bin/bash$}; docker_exec'
+alias dexec='function docker_exec(){docker exec -it $1 /bin/bash}; docker_exec'
 # display path with each directory in a new line
 alias path='echo -e \${PATH//:/\\\n}'
 alias ~='cd ~'
