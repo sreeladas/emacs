@@ -46,21 +46,15 @@ append_to_zshrc() {
 read -p "Would you like to download the suggested customizations for iterm2? (y/n)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    # Allows you to get files from the web without a browser
-    # Limited utility depending on what kind of user you are
-    # Need this to use the next section to download
-    # color scheme, theme and font for iterm2
-    brew install wget
-    
+then    
     # Optional mods for iterm2
     pushd $HOME/Documents/
     
     # Gets color scheme. Need to activate in iterm2 preferences
-    wget https://raw.githubusercontent.com/Clovis-team/clovis-open-code-extracts/master/utils/Clovis-iTerm2-Color-Scheme.itermcolors
+    curl -O https://raw.githubusercontent.com/Clovis-team/clovis-open-code-extracts/master/utils/Clovis-iTerm2-Color-Scheme.itermcolors
     
     # Gets a font that can handle glyphs. Need to activate in iterm2 preferences
-    wget https://github.com/powerline/fonts/blob/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf
+    curl -O https://github.com/powerline/fonts/blob/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf
     
     # Gets some fun features that shows you current git branch etc. Need to activate by adding this into ~/.zshrc
     git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
@@ -91,7 +85,7 @@ alias dbuild='docker build -t api:latest .'
 alias drun='docker run -p 8080:8000 api:latest'
 alias drun_with_volumes='docker run -p 8080:8000 -v $PWD/labs-products api:latest'
 alias dps='docker ps'
-alias dexec='function docker_exec(){docker exec -it $1 /bin/bash$}; docker_exec'
+alias dexec='function docker_exec(){docker exec -it $1 /bin/bash}; docker_exec'
 # display path with each directory in a new line
 alias path='echo -e \${PATH//:/\\\n}'
 alias ~='cd ~'
@@ -100,4 +94,4 @@ alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 # git aliases
-alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2$}'"
+alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
