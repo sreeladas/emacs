@@ -2,8 +2,16 @@
 ;; ;;;;;;;;;;;;;;        Initialize         ;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Install from MELPA: 
-
+;; Install from MELPA:
+(setq gc-cons-threshold 50000000)
+;; Use a hook so the message doesn't get clobbered by other messages.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 (require 'package)
 ;; Install auctex, rename yasnippet directory
 ;; load emacs 24's package system. Add MELPA repository.
@@ -13,15 +21,17 @@
   (package-refresh-contents))
 ;; list the packages you want
 (setq package-list
-      '(auctex bind-key company elpy epl flx flx-ido flycheck jedi let-alist magit move-text multiple-cursors pdf-tools pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      ;; auctex pdf-tools
+      '(bind-key company elpy epl flx flx-ido flycheck jedi let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
-(setq package-enable-at-startup nil)
+(setq package-enable-at-startup nil
+      package--init-file-ensured t)
 
-(add-to-list 'load-path "~/.emacs.d/elpa/auctex-12.1")
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-(load "latex.el" nil t t)
+;; (add-to-list 'load-path "~/.emacs.d/elpa/auctex-12.1")
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
+;; (load "latex.el" nil t t)
 
 ;; fetch the list of packages available 
 (unless package-archive-contents
@@ -105,9 +115,6 @@
         (append-next-kill)
         (kill-backward-chars 1))
     ad-do-it))
-;; (global-set-key (kbd "M-)") 'delete-pair)
-;; (global-set-key (kbd "M-]") 'delete-pair)
-;; (global-set-key (kbd "M-}") 'delete-pair)
 
 ;; company mode (autocomplete)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -181,6 +188,50 @@
   :config
   (global-company-mode))
 
+;; Use Multiple-cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this)
+  ("C-c C-<" . mc/mark-all-like-this))
+
+;; outline-magic
+(add-hook 'outline-mode-hook 
+          (lambda () 
+            (require 'outline-cycle)))
+
+(add-hook 'outline-minor-mode-hook 
+          (lambda () 
+            (require 'outline-magic)
+            (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
+
+;; code folding hs-minor-mode
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))
+
+(defun toggle-hiding (column)
+  (interactive "P")
+  (if hs-minor-mode
+      (if (condition-case nil
+              (hs-toggle-hiding)
+            (error t))
+          (hs-show-all))
+    (toggle-selective-display column)))
+
+(load-library "hideshow")
+(global-set-key (kbd "C-}") 'toggle-hiding)
+(global-set-key (kbd "C-S-}") 'toggle-selective-display)
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
@@ -259,25 +310,25 @@
 ;; ;;;;;;;;;;;;;;;;        LaTeX         ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; auctex
-(use-package tex
-  :ensure auctex
-  :mode ("\\.tex\\'" . TeX-latex-mode)
-  :commands (TeX-command-run-all TeX-clean)
-  :bind (:map LaTeX-mode-map
-	          ("M-p" . latex-do-everything))
-  :config
-  (setq TeX-auto-save t)
-  (setq-default LaTeX-clean-intermediate-suffixes t)
-  ;; ##### changing default master file from current file to main.tex
-  (setq-default TeX-master nil)
-  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (defun latex-do-everything ()
-    "Save the buffer and run 'TeX-command-run-all'."
-    (interactive)
-    (save-buffer)
-    (TeX-command-run-all nil)))
+;; ;; auctex
+;; (use-package tex
+;;   :ensure auctex
+;;   :mode ("\\.tex\\'" . TeX-latex-mode)
+;;   :commands (TeX-command-run-all TeX-clean)
+;;   :bind (:map LaTeX-mode-map
+;; 	          ("M-p" . latex-do-everything))
+;;   :config
+;;   (setq TeX-auto-save t)
+;;   (setq-default LaTeX-clean-intermediate-suffixes t)
+;;   ;; ##### changing default master file from current file to main.tex
+;;   (setq-default TeX-master nil)
+;;   (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
+;;   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+;;   (defun latex-do-everything ()
+;;     "Save the buffer and run 'TeX-command-run-all'."
+;;     (interactive)
+;;     (save-buffer)
+;;     (TeX-command-run-all nil)))
 
 
 ;; Spellcheck
@@ -286,82 +337,38 @@
   :config
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-;; Set PDFTools as the default PDF viewer to use pdfview with auctex
-(pdf-tools-install)
-(use-package pdf-tools
-  :pin manual ;; manually update
-  :config
-  ;; initialise
-  (pdf-tools-install)
-  ;; open pdfs scaled to fit page
-  (setq-default pdf-view-display-size 'fit-page)
-  ;; automatically annotate highlights
-  (setq pdf-annot-activate-created-annotations t)
-  ;; use normal isearch
-  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+;; ;; Set PDFTools as the default PDF viewer to use pdfview with auctex
+;; (pdf-tools-install)
+;; (use-package pdf-tools
+;;   :pin manual ;; manually update
+;;   :config
+;;   ;; initialise
+;;   (pdf-tools-install)
+;;   ;; open pdfs scaled to fit page
+;;   (setq-default pdf-view-display-size 'fit-page)
+;;   ;; automatically annotate highlights
+;;   (setq pdf-annot-activate-created-annotations t)
+;;   ;; use normal isearch
+;;   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
-(server-start)
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      Tex-source-correlate-mode t
-      LaTeX-command "latex --synctex=1") ;; optional: enable synctex
+;; (server-start)
+;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+;;       Tex-source-correlate-mode t
+;;       LaTeX-command "latex --synctex=1") ;; optional: enable synctex
 
-;; to have the buffer refresh after compilation
-(add-hook 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
+;; ;; to have the buffer refresh after compilation
+;; (add-hook 'TeX-after-compilation-finished-functions
+;;           #'TeX-revert-document-buffer)
 
-;; yasnippet
-;; wrap in parentheses C-L
-;; wrap in $-signs C-$
-;; wrap in quotes C-'
-(use-package yasnippet
-  :config
-  (yas-global-mode 1)
-  (yas-load-directory "~/.emacs.d/elpa/yasnippet-20190724.1204/snippets/"))
+;; ;; yasnippet
+;; ;; wrap in parentheses C-L
+;; ;; wrap in $-signs C-$
+;; ;; wrap in quotes C-'
+;; (use-package yasnippet
+;;   :config
+;;   (yas-global-mode 1)
+;;   (yas-load-directory "~/.emacs.d/elpa/yasnippet-20190724.1204/snippets/"))
 
-;; Use Multiple-cursors
-(use-package multiple-cursors
-  :ensure t
-  :bind ("C->" . mc/mark-next-like-this)
-  ("C-<" . mc/mark-previous-like-this)
-  ("C-c C-<" . mc/mark-all-like-this))
-
-;; outline-magic
-(add-hook 'outline-mode-hook 
-          (lambda () 
-            (require 'outline-cycle)))
-
-(add-hook 'outline-minor-mode-hook 
-          (lambda () 
-            (require 'outline-magic)
-            (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
-
-;; code folding hs-minor-mode
-(defun toggle-selective-display (column)
-  (interactive "P")
-  (set-selective-display
-   (or column
-       (unless selective-display
-         (1+ (current-column))))))
-
-(defun toggle-hiding (column)
-  (interactive "P")
-  (if hs-minor-mode
-      (if (condition-case nil
-              (hs-toggle-hiding)
-            (error t))
-          (hs-show-all))
-    (toggle-selective-display column)))
-
-(load-library "hideshow")
-(global-set-key (kbd "C-}") 'toggle-hiding)
-(global-set-key (kbd "C-S-}") 'toggle-selective-display)
-
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-(add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'lisp-mode-hook       'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
-(add-hook 'sh-mode-hook         'hs-minor-mode)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        tramp         ;;;;;;;;;;;;;;;;;
@@ -424,7 +431,7 @@
      "\\tolerance=1000")))
  '(package-selected-packages
    (quote
-    (auctex-latexmk spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar sublime-themes pdf-tools multiple-cursors flycheck flx-ido auctex)))
+    (esup auctex-latexmk spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar sublime-themes pdf-tools multiple-cursors flycheck flx-ido auctex)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(send-mail-function (quote mailclient-send-it))
  '(tramp-default-host "reedbuck" nil (tramp))
