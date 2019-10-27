@@ -49,13 +49,13 @@
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/sreela/.emacs.d/" (23990 6388 243280 284000) "session.1027a8eb17113c2783156495221618914800000008770229" "auto-save-list/" "var/" "network-security.data" "etc/" ".git/" "./" "auctex-12.1.tar.gz" "emacs/" ".gitignore" "macOS_setup.sh" "../" "elpa/" "init.el")
+
  ("/home/sreela/.emacs2.d/" (23989 64837 912766 839000) "./" "../" "init.el")
 
  ("/home/sreela/" (23989 64757 665501 617000) ".bashrc" ".profile" "Desktop/" ".gitconfig" ".PlayOnLinux/" ".root_hist" "Videos/" "backup/" ".sqlite_history" ".bash_logout" ".emacs2.d/" "Adobe Acrobat Reader DC.desktop" ".cache/" ".config/" "Music/" ".icons/" ".masterpdfeditor/" ".Xauthority" ".zshrc" "Public/" ".xsession-errors" "Downloads/" ".wget-hsts" "Pictures/" "Documents/" ".jupyter/" "./" ".texlive2018/" ".local/" ".bash_history" "Installs/" "nltk_data/" ".dmrc" ".emacs~" ".ssh/" "Templates/" ".themes/" "PlayOnLinux's virtual drives/" ".emacs.d/" ".wine/" ".python_history" ".anyconnect" ".xsession-errors.old" ".gnupg/" ".ipython/" ".mozilla/" "../" ".ICEauthority")
 
  ("/home/sreela/Documents/" (23986 26644 319443 95000) "study_permit/" "Default.ipynb" "jobs_and_adj/" "CV/" "sreeladas.github.io/" "kaggle_comp/" "news_proj/" "./" ".ipynb_checkpoints/" "GPU_computing/" "msc_thesis/" "Data4Good/" "../")
-
- ("/home/sreela/.emacs.d/" (23988 46618 998560 694000) "session.1027a8eb17113c2783156495221618914800000008770229" "auto-save-list/" "var/" "network-security.data" "etc/" ".git/" "./" "auctex-12.1.tar.gz" "emacs/" ".gitignore" "macOS_setup.sh" "../" "elpa/" "init.el")
 
  ("/home/sreela/Documents/kaggle_comp/" (23979 25196 421093 177000) "hydro_y.png" "submission_run.csv" "pairplot_2.png" "coverplot_2.png" "learn-together.csv" "test.csv" "pairplot_0.png" "hydro_x.png" "Soil_0.png" "900Z.png" "coverplot_3.png" "learn-together-run.ipynb" "pairplot_some.png" "train.csv" ".#scratch.py" "scratch.py" "./" ".ipynb_checkpoints/" "1200Z.png" "pairplot_3.png" "Soil_2.png" "hydro_r.png" "pairplot_1.png" "coverplot_1.png" "hydro_xy.png" "Elevation_Slope.png" "learn-together-analysis.ipynb" "1500Z.png" "../" "coverplot_0.png")
 

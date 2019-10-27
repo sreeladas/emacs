@@ -13,12 +13,12 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 (require 'package)
-;; Install auctex, rename yasnippet directory
-;; load emacs 24's package system. Add MELPA repository.
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives   '("melpa" . "https://melpa.org/packages/") t)
-  (package-refresh-contents))
+;; ;; Install auctex, rename yasnippet directory
+;; ;; load emacs 24's package system. Add MELPA repository.
+;; (when (>= emacs-major-version 24)
+;;   (require 'package)
+;;   (add-to-list 'package-archives   '("melpa" . "https://melpa.org/packages/") t)
+;;   (package-refresh-contents))
 ;; list the packages you want
 (setq package-list
       ;; auctex pdf-tools
@@ -431,7 +431,7 @@
      "\\tolerance=1000")))
  '(package-selected-packages
    (quote
-    (esup auctex-latexmk spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar sublime-themes pdf-tools multiple-cursors flycheck flx-ido auctex)))
+    (esup spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar sublime-themes multiple-cursors flycheck flx-ido)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(send-mail-function (quote mailclient-send-it))
  '(tramp-default-host "reedbuck" nil (tramp))
