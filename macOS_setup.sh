@@ -94,8 +94,4 @@ alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 # git aliases
-<<<<<<< HEAD:macOS_setup.sh
 alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
-=======
-alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
->>>>>>> 8285b93b3ce4b41d62c1d523b9d02f60e2b7e136:labs_onboarding.sh
