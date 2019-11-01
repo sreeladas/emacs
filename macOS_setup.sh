@@ -94,4 +94,4 @@ alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 # git aliases
-alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
+alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"
