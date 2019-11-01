@@ -2,24 +2,23 @@
 ;; ;;;;;;;;;;;;;;        Initialize         ;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Install from MELPA:
-(setq gc-cons-threshold 50000000)
-;; Use a hook so the message doesn't get clobbered by other messages.
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+;; speedup/sanity
+;; gc-cons-threshold is the number of bytes of consing before a garbage collection is invoked.
+;; It's normally set super low for compatibility with older machines, but any modern machine with decent RAM can handle 50MB of garbage
+;; (setq gc-cons-threshold 100000000)
+
+;; Install from MELPA: 
+
 (require 'package)
-;; ;; Install auctex, rename yasnippet directory
-;; ;; load emacs 24's package system. Add MELPA repository.
+;; Install auctex, rename yasnippet directory
+;; load emacs 24's package system. Add MELPA repository.
+
 ;; (when (>= emacs-major-version 24)
 ;;   (require 'package)
 ;;   (add-to-list 'package-archives   '("melpa" . "https://melpa.org/packages/") t)
 ;;   (package-refresh-contents))
 ;; list the packages you want
+
 (setq package-list
       ;; auctex pdf-tools
       '(bind-key company elpy epl flx flx-ido flycheck jedi let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
@@ -179,7 +178,10 @@
   :bind-keymap (("C-c p" . projectile-command-map)
 		        ("s-p" . projectile-command-map)) 
   :config
+
   (projectile-global-mode))
+  (setq projectile-enable-caching t))
+
 
 ;;;; Company. Auto-completion, used for python mostly.
 (use-package company
@@ -233,6 +235,52 @@
 (add-hook 'perl-mode-hook       'hs-minor-mode)
 (add-hook 'sh-mode-hook         'hs-minor-mode)
 
+;; Use Multiple-cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this)
+  ("C-c C-<" . mc/mark-all-like-this))
+
+;; outline-magic
+(add-hook 'outline-mode-hook 
+          (lambda () 
+            (require 'outline-cycle)))
+
+(add-hook 'outline-minor-mode-hook 
+          (lambda () 
+            (require 'outline-magic)
+            (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
+
+;; code folding hs-minor-mode
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (or column
+       (unless selective-display
+         (1+ (current-column))))))
+
+(defun toggle-hiding (column)
+  (interactive "P")
+  (if hs-minor-mode
+      (if (condition-case nil
+              (hs-toggle-hiding)
+            (error t))
+          (hs-show-all))
+    (toggle-selective-display column)))
+
+(load-library "hideshow")
+(global-set-key (kbd "C-}") 'toggle-hiding)
+(global-set-key (kbd "C-S-}") 'toggle-selective-display)
+
+(add-hook 'c-mode-common-hook   'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook       'hs-minor-mode)
+(add-hook 'lisp-mode-hook       'hs-minor-mode)
+(add-hook 'perl-mode-hook       'hs-minor-mode)
+(add-hook 'sh-mode-hook         'hs-minor-mode)
+
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -272,7 +320,15 @@
   :config
   (setq python-indent-offset 4)
   (add-hook 'python-mode-hook 'smartparens-mode)
-  (add-hook 'python-mode-hook 'color-identifiers-mode))
+  (add-hook 'python-mode-hook 'color-identifiers-mode)
+  (require 'multi-line)
+  (global-set-key (kbd "C-c d") 'multi-line))
+
+(use-package py-autopep8
+  :after python
+  ;; :ensure-system-package (autopep8 . py37-autopep8)
+  :hook (python-mode . py-autopep8-enable-on-save))
+  (setq py-autopep8-options '("--max-line-length=79"))
 
 (use-package jedi
   :ensure t
@@ -310,7 +366,6 @@
 ;; ;;;;;;;;;;;;;;;;        LaTeX         ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; auctex
 ;; (use-package tex
 ;;   :ensure auctex
 ;;   :mode ("\\.tex\\'" . TeX-latex-mode)
@@ -360,15 +415,19 @@
 ;; (add-hook 'TeX-after-compilation-finished-functions
 ;;           #'TeX-revert-document-buffer)
 
-;; ;; yasnippet
-;; ;; wrap in parentheses C-L
-;; ;; wrap in $-signs C-$
-;; ;; wrap in quotes C-'
+;; yasnippet
+;; wrap in parentheses C-L
+;; wrap in $-signs C-$
+;; wrap in quotes C-'
+
 ;; (use-package yasnippet
 ;;   :config
 ;;   (yas-global-mode 1)
 ;;   (yas-load-directory "~/.emacs.d/elpa/yasnippet-20190724.1204/snippets/"))
 
+<<<<<<< HEAD
+=======
+>>>>>>> mac_move emacs config
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        tramp         ;;;;;;;;;;;;;;;;;
@@ -376,6 +435,7 @@
 
 ;; tramp - edit/remove
 ;; Keep the path settings of the remote account.
+<<<<<<< HEAD
 (use-package tramp
   :config
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
@@ -385,6 +445,17 @@
    '(tramp-default-host "reedbuck")))
 
 (global-set-key (kbd "C-S-t") 'tramp-cleanup-all-connections)
+=======
+;; (use-package tramp
+;;   :config
+;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+;;   (custom-set-variables
+;;    '(tramp-default-method "ssh")
+;;    '(tramp-default-user "")
+;;    '(tramp-default-host "reedbuck")))
+
+;; (global-set-key (kbd "C-S-t") 'tramp-cleanup-all-connections)
+>>>>>>> mac_move emacs config
 
 
 
@@ -431,10 +502,12 @@
      "\\tolerance=1000")))
  '(package-selected-packages
    (quote
-    (esup spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar sublime-themes multiple-cursors flycheck flx-ido)))
+
+    (py-autopep8 multi-line auctex-latexmk spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar multiple-cursors flycheck flx-ido)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
  '(send-mail-function (quote mailclient-send-it))
- '(tramp-default-host "reedbuck" nil (tramp))
+ '(tramp-default-host "reedbuck")
+
  '(tramp-default-method "ssh" nil (tramp))
  '(tramp-default-user "" nil (tramp))
  '(yas-use-menu nil))
