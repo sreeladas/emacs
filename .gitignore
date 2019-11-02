@@ -3,6 +3,7 @@ auctex-12.1.tar.gz
 *~
 session*
 var/*
+etc/*
 elpa/*
 emacs/*
 *desktop.lock
