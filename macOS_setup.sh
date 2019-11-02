@@ -9,7 +9,10 @@ brew update
 brew upgrade --all
 
 brew install python3
-brew cask install pycharm-ce
+
+# Maybe just pick one of the two, or stick with vim or use spacemacs instead
+# brew cask install pycharm-ce
+brew cask install emacs
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
@@ -94,8 +97,4 @@ alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 # git aliases
-<<<<<<< HEAD:macOS_setup.sh
-alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
-=======
-alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
->>>>>>> 8285b93b3ce4b41d62c1d523b9d02f60e2b7e136:labs_onboarding.sh
+alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"
