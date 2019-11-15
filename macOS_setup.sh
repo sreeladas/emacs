@@ -9,10 +9,7 @@ brew update
 brew upgrade --all
 
 brew install python3
-
-# Maybe just pick one of the two, or stick with vim or use spacemacs instead
-# brew cask install pycharm-ce
-brew cask install emacs
+brew cask install pycharm-ce
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
@@ -46,7 +43,7 @@ append_to_zshrc() {
   fi
 }
 
-read -p "Would you like to download the suggested customizations for iterm2? (y/n)" -n 1 -r
+read -p "Would you like to download the suggested (appearance) customizations for iterm2? (y/n)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then    
@@ -60,20 +57,20 @@ then
     curl -O https://github.com/powerline/fonts/blob/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf
     
     # Gets some fun features that shows you current git branch etc. Need to activate by adding this into ~/.zshrc
-    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     popd
 
     append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
-ZSH_THEME="powerlevel9k/powerlevel9k"'
+ZSH_THEME="powerlevel10k/powerlevel10k"'
 
-    append_to_zshrc '# Once powerlevel9k is installed and activated, this activates the version control features
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)'
+    append_to_zshrc '# Once powerlevel10k is installed and activated, this activates the version control features
+POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)'
 
     append_to_zshrc '# This shows the status, background jobs and history time
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)'
+POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)'
 
     append_to_zshrc '# This puts the cursor on a new which is useful if you have long directory names or long git repo names
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true'
+POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
 fi
 echo "To implement these, you will need to open: 
 iterm2 > Preferences > Profiles > Colors > Color Presets > Import 
@@ -85,8 +82,8 @@ Read more about this at https://medium.com/@Clovis_app/configuration-of-a-beauti
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
 alias dbuild='docker build -t api:latest .'
-alias drun='docker run -p 8080:8000 api:latest'
-alias drun_with_volumes='docker run -p 8080:8000 -v $PWD/labs-products api:latest'
+alias drun='docker run -p 8080:8080 api:latest'
+alias drun_with_volumes='docker run -p 8080:8080 -v $PWD api:latest'
 alias dps='docker ps'
 alias dexec='function docker_exec(){docker exec -it $1 /bin/bash}; docker_exec'
 # display path with each directory in a new line
@@ -96,5 +93,6 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
+
 # git aliases
-alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"
+alias git_pr_branch='function pr_branch(){git fetch $1 $2; git checkout $2}; pr_branch'"
