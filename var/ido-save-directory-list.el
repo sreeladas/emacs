@@ -14,8 +14,8 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/home/sreela/.emacs2.d/"
  "/home/sreela/.emacs.d/"
+ "/home/sreela/.emacs2.d/"
  "/home/sreela/Documents/"
  "/home/sreela/Documents/kaggle_comp/"
  "/home/sreela/Documents/msc_thesis/"
@@ -35,6 +35,7 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "macOS_setup.sh"
  "init.el"
  "test_onboard.sh"
  "zshrc_mods"
@@ -44,12 +45,11 @@
  "main.xmpdata"
  "main.tex"
  "main.pdf"
- "thesis.bib"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/sreela/.emacs.d/" (23990 6388 243280 284000) "session.1027a8eb17113c2783156495221618914800000008770229" "auto-save-list/" "var/" "network-security.data" "etc/" ".git/" "./" "auctex-12.1.tar.gz" "emacs/" ".gitignore" "macOS_setup.sh" "../" "elpa/" "init.el")
+ ("/home/sreela/.emacs.d/" (23996 49447 453002 615000) "session.1027a8eb17113c2783156495221618914800000008770229" "auto-save-list/" "var/" "etc/" ".git/" "./" "auctex-12.1.tar.gz" "emacs/" ".gitignore" "macOS_setup.sh" "../" "elpa/" "init.el")
 
  ("/home/sreela/.emacs2.d/" (23989 64837 912766 839000) "./" "../" "init.el")
 

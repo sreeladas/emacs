@@ -1,8 +1,10 @@
 # exclude everything except directory foo/bar
 auctex-12.1.tar.gz
 *~
+**known-projects.el
 session*
 var/*
+etc/*
 elpa/*
 emacs/*
 *desktop.lock
