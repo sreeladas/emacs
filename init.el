@@ -27,11 +27,6 @@
 (setq package-enable-at-startup nil
       package--init-file-ensured t)
 
-;; (add-to-list 'load-path "~/.emacs.d/elpa/auctex-12.1")
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
-;; (load "latex.el" nil t t)
-
 ;; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -45,15 +40,12 @@
 (eval-when-compile (require 'use-package))
 
 
+;; redefines the silly indent of keyword lists
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;;;;;;;;;;;;;;;;;      Org Mode     ;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;      fix elisp indent issue     ;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-(setq org-agenda-start-day "+0d")
+
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;      Appearance/Miscellaneous     ;;;;;;;;;;
@@ -79,8 +71,31 @@
 (global-set-key [(control shift up)]  'move-text-up)
 (global-set-key [(control shift down)]  'move-text-down)
 
+
+(show-paren-mode t)
+(setq show-paren-style 'expression)
+
 ;; smart tabs for the frequently used languages
-(smart-tabs-insinuate 'c 'c++ 'python 'java)
+(use-package smart-tabs-mode
+  :ensure t
+  :config
+  ;; (autoload 'smart-tabs-mode "smart-tabs-mode"
+  ;;   "Intelligently indent with tabs, align with spaces!")
+  ;; (autoload 'smart-tabs-mode-enable "smart-tabs-mode")
+  ;; (autoload 'smart-tabs-advice "smart-tabs-mode")
+
+  ;; C/C++
+  (add-hook 'c-mode-hook 'smart-tabs-mode-enable)
+  (smart-tabs-advice c-indent-line c-basic-offset)
+  (smart-tabs-advice c-indent-region c-basic-offset)
+
+  ;; Python
+  (add-hook 'python-mode-hook 'smart-tabs-mode-enable)
+  (smart-tabs-advice python-indent-line-1 python-indent))
+
+(with-eval-after-load 'lisp-mode
+  (if (version<= "26.2" emacs-version)
+    (advice-add 'lisp-indent-calc-next :override #'lisp-indent-calc-next-patch)))
 
 ;; insert pair of whatevs
 (defvar skeletons-alist
@@ -98,6 +113,11 @@
 (global-set-key (kbd "{") 'skeleton-pair-insert-maybe)
 (global-set-key (kbd "\"") 'skeleton-pair-insert-maybe) ; wraps in "", for ``'' use C-' from yasnippet
 (global-set-key (kbd "\'") 'skeleton-pair-insert-maybe)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C->")  'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; delete pair of whatevs
 (defadvice delete-backward-char (before delete-empty-pair activate)
@@ -180,7 +200,7 @@
   :config
 
   (projectile-global-mode))
-  (setq projectile-enable-caching t))
+  (setq projectile-enable-caching t)
 
 
 ;;;; Company. Auto-completion, used for python mostly.
@@ -190,23 +210,6 @@
   :config
   (global-company-mode))
 
-;; Use Multiple-cursors
-(use-package multiple-cursors
-  :ensure t
-  :bind ("C->" . mc/mark-next-like-this)
-  ("C-<" . mc/mark-previous-like-this)
-  ("C-c C-<" . mc/mark-all-like-this))
-
-;; outline-magic
-(add-hook 'outline-mode-hook 
-          (lambda () 
-            (require 'outline-cycle)))
-
-(add-hook 'outline-minor-mode-hook 
-          (lambda () 
-            (require 'outline-magic)
-            (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
-
 ;; code folding hs-minor-mode
 (defun toggle-selective-display (column)
   (interactive "P")
@@ -251,35 +254,6 @@
           (lambda () 
             (require 'outline-magic)
             (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
-
-;; code folding hs-minor-mode
-(defun toggle-selective-display (column)
-  (interactive "P")
-  (set-selective-display
-   (or column
-       (unless selective-display
-         (1+ (current-column))))))
-
-(defun toggle-hiding (column)
-  (interactive "P")
-  (if hs-minor-mode
-      (if (condition-case nil
-              (hs-toggle-hiding)
-            (error t))
-          (hs-show-all))
-    (toggle-selective-display column)))
-
-(load-library "hideshow")
-(global-set-key (kbd "C-}") 'toggle-hiding)
-(global-set-key (kbd "C-S-}") 'toggle-selective-display)
-
-(add-hook 'c-mode-common-hook   'hs-minor-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-(add-hook 'java-mode-hook       'hs-minor-mode)
-(add-hook 'lisp-mode-hook       'hs-minor-mode)
-(add-hook 'perl-mode-hook       'hs-minor-mode)
-(add-hook 'sh-mode-hook         'hs-minor-mode)
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
@@ -292,19 +266,103 @@
 ;; ;;;;;;;;;;;;;;;        Org mode        ;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq org-agenda-files (list "~/Documents/CV/2019_09_transit/prompt.org"
-                             "~/Documents/Data4Good/d4g.org" 
-                             "~/Documents/msc_thesis/fixes.org"))
+(use-package org
+  :init
+  (setq org-startup-truncated nil)
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (define-key global-map (kbd "C-c c") 'org-capture)
+  (setq org-log-done t)
+  (setq org-agenda-start-day "+0d")
+  
+  (setq org-directory "~/code/")
+  (setq org-default-notes-file (concat org-directory "master_todo.org"))
+  (setq org-agenda-files (list "/Users/sreela/code/master_todo.org"))
+  (add-to-list 'org-agenda-prefix-format '(todo . "  %b"))
+  
+  ;;set priority range from A to C with default A
+  (setq org-highest-priority ?A)
+  (setq org-lowest-priority ?E)
+  (setq org-default-priority ?C)
 
-;; (require 'ox-latex)
-;; (unless (boundp 'org-latex-classes)
-;;   (setq org-latex-classes nil))
-;; (add-to-list 'org-latex-classes
-;;              '("article"
-;;                "\\documentclass{article}"
-;;                ("\\section{%s}" . "\\section*{%s}")))
+  ;; Auto mark task done if all children are done
+  (defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+  ;; Always use all children to calculate cookie data
+  (setq org-hierarchical-todo-statistics nil)
+  
+  ;;set colours for priorities
+  (setq org-priority-faces '((?A . (:foreground "firebrick3" :weight bold))
+                             (?B . (:foreground "goldenrod3" :weight bold))
+                             (?C . (:foreground "orange3")))
+                             (?D . (:foreground "MediumPurple3"))
+                             (?E . (:foreground "pink3")))
+  ;; (add-hook 'outline-minor-mode-hook
+  ;;   (lambda ()
+  ;;     (define-key outline-minor-mode-map [(control tab)] 'org-cycle)
+  ;;     (define-key outline-minor-mode-map [(shift tab)] 'org-global-cycle)))
+  ;; (add-hook 'outline-mode-hook
+  ;;   (lambda ()
+  ;;     (define-key outline-mode-map [(tab)] 'org-cycle)
+  ;;     (define-key outline-mode-map [(shift tab)] 'org-global-cycle)))
+  
+  (setq org-completion-use-ido t)
+  
+  ;;open agenda in current window
+  (setq org-agenda-window-setup (quote current-window))
+  
+  ;;capture todo items using C-c c [custom project key]
+  (setq org-capture-templates
+        '(("j" "Sales Experiment" entry (file+headline "/Users/sreela/code/master_todo.org" "Sales Forecasting Experiment")
+           "* TODO %T%?\n\n")
+          ("r" "Service Report" entry (file+headline "/Users/sreela/code/master_todo.org" "Service Report and API")
+           "* TODO %T%?\n\n")
+          ("c" "Tutor Pay-Tracker" entry (file+headline "/Users/sreela/code/master_todo.org" "Tutor Pay-Raise Tracker")
+           "* TODO %T%?\n\n")
+          ("n" "Add New Project" entry (file+headline "/Users/sreela/code/master_todo.org" "New Project [/]")
+           "* TODO %T%?\n\n")))
+  
+  ; Tags with fast selection keys
+  (setq org-tag-alist (quote ((:startgroup)
+                              ("@office" . ?o)
+                              (:endgroup)
+                              ("WAITING" . ?w)
+                              ("NEXT" . ?n)
+                              ("CANCELLED" . ?c)
+                              ("MEETING" . ?m))))
+  
+  ; Allow setting single tags without the menu
+  (setq org-fast-tag-selection-single-key (quote expert))
+  
+  ; For tag searches ignore tasks with scheduled and deadline dates
+  (setq org-agenda-tags-todo-honor-ignore-options t)
+  
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)")
+          (sequence "|" "CANCELLED(c)")))
+  
+  (setq org-todo-keyword-faces
+        '(("TODO" :foreground "firebrick" :weight bold)
+          ("NEXT" :foreground "turquoise" :weight bold)
+          ("DONE" :foreground "royal blue" :weight bold)
+          ("WAITING" :foreground "tomato" :weight bold)
+          ("CANCELLED" :foreground "olive drab" :weight bold)
+          ("MEETING" :foreground "forest green" :weight bold)))
+  
+  (setq org-todo-state-tags-triggers
+        '(("CANCELLED" ("CANCELLED" . t))
+          ("WAITING" ("WAITING" . t))
+          (done ("WAITING"))
+          ("TODO" ("WAITING") ("CANCELLED"))
+          ("NEXT" ("WAITING") ("CANCELLED"))
+          ("DONE" ("WAITING") ("CANCELLED"))))
+  )
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -327,8 +385,8 @@
 (use-package py-autopep8
   :after python
   ;; :ensure-system-package (autopep8 . py37-autopep8)
-  :hook (python-mode . py-autopep8-enable-on-save))
-  (setq py-autopep8-options '("--max-line-length=79"))
+  :hook (python-mode . py-autopep8-enable-on-save)
+  :init (setq py-autopep8-options '("--max-line-length=79")))
 
 (use-package jedi
   :ensure t
@@ -425,9 +483,6 @@
 ;;   (yas-global-mode 1)
 ;;   (yas-load-directory "~/.emacs.d/elpa/yasnippet-20190724.1204/snippets/"))
 
-<<<<<<< HEAD
-=======
->>>>>>> mac_move emacs config
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        tramp         ;;;;;;;;;;;;;;;;;
@@ -435,17 +490,7 @@
 
 ;; tramp - edit/remove
 ;; Keep the path settings of the remote account.
-<<<<<<< HEAD
-(use-package tramp
-  :config
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-  (custom-set-variables
-   '(tramp-default-method "ssh")
-   '(tramp-default-user "")
-   '(tramp-default-host "reedbuck")))
 
-(global-set-key (kbd "C-S-t") 'tramp-cleanup-all-connections)
-=======
 ;; (use-package tramp
 ;;   :config
 ;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
@@ -455,8 +500,6 @@
 ;;    '(tramp-default-host "reedbuck")))
 
 ;; (global-set-key (kbd "C-S-t") 'tramp-cleanup-all-connections)
->>>>>>> mac_move emacs config
-
 
 
 (custom-set-variables
@@ -465,52 +508,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (spacemacs-dark)))
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "c48551a5fb7b9fc019bf3f61ebf14cf7c9cdca79bcb2a4219195371c02268f11" default)))
- '(hl-todo-keyword-faces
-   (quote
-    (("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX" . "#dc752f")
-     ("XXXX" . "#dc752f")
-     ("???" . "#dc752f"))))
- '(org-export-latex-default-packages-alist
-   (quote
-    (("AUTO" "inputenc" t)
-     ("T1" "fontenc" nil)
-     ("" "graphicx" t)
-     ("" "float" nil)
-     ("" "wrapfig" nil)
-     ("" "soul" t)
-     ("" "latexsym" t)
-     ("" "amssymb" t)
-     ("" "hyperref" nil)
-     "\\tolerance=1000")))
- '(package-selected-packages
-   (quote
-
-    (py-autopep8 multi-line auctex-latexmk spacemacs-theme jedi elpy company-jedi company magit no-littering smooth-scrolling smart-tabs-mode move-text projectile yasnippet use-package tabbar multiple-cursors flycheck flx-ido)))
- '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
- '(send-mail-function (quote mailclient-send-it))
- '(tramp-default-host "reedbuck")
-
- '(tramp-default-method "ssh" nil (tramp))
- '(tramp-default-user "" nil (tramp))
- '(yas-use-menu nil))
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]
+))
 
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
