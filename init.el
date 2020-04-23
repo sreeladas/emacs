@@ -102,9 +102,9 @@
   '((?\( . ?\))
     (?\' . ?\')
     (?\" . ?\")
-    (?[  . ?])
-    (?{  . ?})
-    (?$  . ?$)))
+    (?\[  . ?\])
+    (?\{  . ?\})
+    (?\$  . ?\$)))
 
 (setq skeleton-pair t)
 (global-set-key (kbd "$") 'skeleton-pair-insert-maybe)
@@ -112,7 +112,7 @@
 (global-set-key (kbd "[") 'skeleton-pair-insert-maybe)
 (global-set-key (kbd "{") 'skeleton-pair-insert-maybe)
 (global-set-key (kbd "\"") 'skeleton-pair-insert-maybe) ; wraps in "", for ``'' use C-' from yasnippet
-(global-set-key (kbd "\'") 'skeleton-pair-insert-maybe)
+(global-set-key (kbd "'") 'skeleton-pair-insert-maybe)
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C->")  'mc/mark-next-like-this)
@@ -279,7 +279,8 @@
   (setq org-directory "~/code/")
   (setq org-default-notes-file (concat org-directory "master_todo.org"))
   (setq org-agenda-files (list "/Users/sreela/code/master_todo.org"))
-  (add-to-list 'org-agenda-prefix-format '(todo . "  %b"))
+  (with-eval-after-load 'org-agenda
+    (add-to-list 'org-agenda-prefix-format '(todo . "  %b")))
   
   ;;set priority range from A to C with default A
   (setq org-highest-priority ?A)
@@ -302,15 +303,7 @@
                              (?B . (:foreground "goldenrod3" :weight bold))
                              (?C . (:foreground "orange3")))
                              (?D . (:foreground "MediumPurple3"))
-                             (?E . (:foreground "pink3")))
-  ;; (add-hook 'outline-minor-mode-hook
-  ;;   (lambda ()
-  ;;     (define-key outline-minor-mode-map [(control tab)] 'org-cycle)
-  ;;     (define-key outline-minor-mode-map [(shift tab)] 'org-global-cycle)))
-  ;; (add-hook 'outline-mode-hook
-  ;;   (lambda ()
-  ;;     (define-key outline-mode-map [(tab)] 'org-cycle)
-  ;;     (define-key outline-mode-map [(shift tab)] 'org-global-cycle)))
+                             (?E . (:foreground "RosyBrown3")))
   
   (setq org-completion-use-ido t)
   
@@ -319,23 +312,14 @@
   
   ;;capture todo items using C-c c [custom project key]
   (setq org-capture-templates
-        '(("j" "Sales Experiment" entry (file+headline "/Users/sreela/code/master_todo.org" "Sales Forecasting Experiment")
+        '(("c" "CS Streamlit" entry (file+headline "/Users/sreela/code/master_todo.org" "CS Streamlit Feature Request")
            "* TODO %T%?\n\n")
-          ("r" "Service Report" entry (file+headline "/Users/sreela/code/master_todo.org" "Service Report and API")
+          ("s" "Scheduler" entry (file+headline "/Users/sreela/code/master_todo.org" "Scheduler Feature Request")
            "* TODO %T%?\n\n")
-          ("c" "Tutor Pay-Tracker" entry (file+headline "/Users/sreela/code/master_todo.org" "Tutor Pay-Raise Tracker")
+          ("p" "Tutor Pay-Tracker" entry (file+headline "/Users/sreela/code/master_todo.org" "Tutor Pay-Raise Tracker")
            "* TODO %T%?\n\n")
           ("n" "Add New Project" entry (file+headline "/Users/sreela/code/master_todo.org" "New Project [/]")
            "* TODO %T%?\n\n")))
-  
-  ; Tags with fast selection keys
-  (setq org-tag-alist (quote ((:startgroup)
-                              ("@office" . ?o)
-                              (:endgroup)
-                              ("WAITING" . ?w)
-                              ("NEXT" . ?n)
-                              ("CANCELLED" . ?c)
-                              ("MEETING" . ?m))))
   
   ; Allow setting single tags without the menu
   (setq org-fast-tag-selection-single-key (quote expert))
@@ -382,11 +366,11 @@
   (require 'multi-line)
   (global-set-key (kbd "C-c d") 'multi-line))
 
-(use-package py-autopep8
-  :after python
-  ;; :ensure-system-package (autopep8 . py37-autopep8)
-  :hook (python-mode . py-autopep8-enable-on-save)
-  :init (setq py-autopep8-options '("--max-line-length=79")))
+;; (use-package py-autopep8
+;;   :after python
+;;   ;; :ensure-system-package (autopep8 . py37-autopep8)
+;;   :hook (python-mode . py-autopep8-enable-on-save)
+;;   :init (setq py-autopep8-options '("--max-line-length=79")))
 
 (use-package jedi
   :ensure t
@@ -406,6 +390,11 @@
   :init (with-eval-after-load 'python (elpy-enable))
 
   :config
+  ;; Automatically run Black on buffer save
+  (add-hook 'elpy-mode-hook
+            '(lambda ()
+               (when (eq major-mode 'python-mode)
+                 (add-hook 'before-save-hook 'elpy-black-fix-code))))
   (electric-indent-local-mode -1)
   (delete 'elpy-module-highlight-indentation elpy-modules)
   (delete 'elpy-module-flymake elpy-modules)
@@ -508,8 +497,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]
-))
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]))
+
 
 (with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
