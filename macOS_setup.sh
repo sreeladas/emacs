@@ -14,8 +14,8 @@ brew install python3
 brew cask install pycharm-ce
 # brew cask install emacs
 
-python3 -m pip install --upgrade pip
-python3 -m pip install jupyter
+python -m pip install --upgrade pip
+python -m pip install jupyter
 
 brew cask install sequel-pro
 
