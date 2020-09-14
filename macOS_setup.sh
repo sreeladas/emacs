@@ -11,8 +11,8 @@ brew upgrade --all
 brew install python3
 
 # Maybe just pick one of the two, or stick with vim or use spacemacs instead
-# brew cask install pycharm-ce
-brew cask install emacs
+brew cask install pycharm-ce
+# brew cask install emacs
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
