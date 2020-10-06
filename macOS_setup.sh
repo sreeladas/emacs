@@ -8,7 +8,11 @@
 brew update
 brew upgrade --all
 
-brew install python3
+brew install python@3.7
+
+# Add the (dependencies and) pyenv package
+brew install readline xz
+brew install pyenv pyenv-virtualenv
 
 # Maybe just pick one of the two, or stick with vim or use spacemacs instead
 brew cask install pycharm-ce
@@ -23,7 +27,14 @@ brew cask install iterm2
 
 brew install zsh zsh-completions zsh-syntax-highlighting
 
-brew instal git
+brew install git
+brew install gh
+echo "To clone repos you can now use 'gh repo clone <username/repo_name>'
+
+# Add any required repos below
+# gh repo clone sreeladas/emacs
+# gh repo clone sreeladas/emacs
+
 
 brew cask install postman
 
@@ -45,6 +56,10 @@ append_to_zshrc() {
       printf "\\n%s\\n" "$text" >> "$zshrc"
   fi
 }
+append_to_zshrc 'export PYTHONPATH="$HOME/code"'
+append_to_zshrc 'export PATH=$(pyenv root)/shims:$PATH'
+append_to_zshrc 'eval "$(pyenv init -)"'
+append_to_zshrc 'eval "$(pyenv virtualenv-init -)"'
 
 read -p "Would you like to download the suggested (appearance) customizations for iterm2? (y/n)" -n 1 -r
 echo
@@ -74,13 +89,13 @@ POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histo
 
     append_to_zshrc '# This puts the cursor on a new which is useful if you have long directory names or long git repo names
 POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
-fi
 echo "To implement these, you will need to open: 
 iterm2 > Preferences > Profiles > Colors > Color Presets > Import 
        and find Clovis in the browser 
 iterm2 > Preference > Profiles > Text > Change Font > find 
        the Source Code Pro font. 
 Read more about this at https://medium.com/@Clovis_app/configuration-of-a-beautiful-efficient-terminal-and-prompt-on-osx-in-7-minutes-827c29391961"
+fi
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
