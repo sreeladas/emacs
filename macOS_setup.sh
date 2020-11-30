@@ -32,8 +32,11 @@ brew install gh
 echo "To clone repos you can now use 'gh repo clone <username/repo_name>'
 
 # Add any required repos below
+# mkdir ~/code
+# pushd ~/code
 # gh repo clone sreeladas/emacs
 # gh repo clone sreeladas/emacs
+# popd
 
 
 brew cask install postman
@@ -99,9 +102,9 @@ fi
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
-alias dbuild='docker build -t api:latest .'
-alias drun='docker run -p 8080:8080 api:latest'
-alias drun_with_volumes='docker run -p 8080:8080 -v $PWD api:latest'
+alias dbuild="docker build -t ${PWD##*/}:latest ."
+alias drun="docker run --name ${PWD##*/} -p 8080:8080 ${PWD##*/}:latest"
+alias drun_with_volumes="docker run -p 8080:8080 -v $PWD/labs-products:/app ${PWD##*/}:latest --name  ${PWD##*/}"
 alias dps='docker ps'
 alias dexec='function docker_exec(){docker exec -it $1 /bin/bash}; docker_exec'
 # display path with each directory in a new line
