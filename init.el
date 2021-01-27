@@ -13,15 +13,15 @@
 ;; Install auctex, rename yasnippet directory
 ;; load emacs 24's package system. Add MELPA repository.
 
-;; (when (>= emacs-major-version 24)
-;;   (require 'package)
-;;   (add-to-list 'package-archives   '("melpa" . "https://melpa.org/packages/") t)
-;;   (package-refresh-contents))
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives   '("melpa" . "https://melpa.org/packages/") t)
+  (package-refresh-contents))
 ;; list the packages you want
 
 (setq package-list
       ;; auctex pdf-tools
-      '(bind-key company elpy epl flx flx-ido flycheck jedi let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      '(bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
 (setq package-enable-at-startup nil
@@ -38,13 +38,6 @@
 (let ((default-directory "~/.emacs.d/elpa"))
   (normal-top-level-add-subdirs-to-load-path))
 (eval-when-compile (require 'use-package))
-
-
-;; redefines the silly indent of keyword lists
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;;;;;;;;;      fix elisp indent issue     ;;;;;;;;;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -93,9 +86,6 @@
   (add-hook 'python-mode-hook 'smart-tabs-mode-enable)
   (smart-tabs-advice python-indent-line-1 python-indent))
 
-(with-eval-after-load 'lisp-mode
-  (if (version<= "26.2" emacs-version)
-    (advice-add 'lisp-indent-calc-next :override #'lisp-indent-calc-next-patch)))
 
 ;; insert pair of whatevs
 (defvar skeletons-alist
@@ -143,6 +133,11 @@
 
 ;; remove extra newline at the end of snippets!
 (setq-default mode-require-final-newline nil)
+
+(global-linum-mode t)              ;; enable line numbers globally
+(setq linum-format "%4d \u2502 ")  ;; format line number spacing
+;; Allow hash to be entered  
+(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 ;; no-littering
 (use-package no-littering               ; Keep .emacs.d clean
@@ -301,9 +296,9 @@
   ;;set colours for priorities
   (setq org-priority-faces '((?A . (:foreground "firebrick3" :weight bold))
                              (?B . (:foreground "goldenrod3" :weight bold))
-                             (?C . (:foreground "orange3")))
+                             (?C . (:foreground "orange3"))
                              (?D . (:foreground "MediumPurple3"))
-                             (?E . (:foreground "RosyBrown3")))
+                             (?E . (:foreground "RosyBrown3"))))
   
   (setq org-completion-use-ido t)
   
@@ -350,54 +345,49 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq python-shell-interpreter "python3.8")
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   ("\\.wsgi$" . python-mode)
-  :interpreter ("python" . python-mode)
+  :interpreter ("python3.8" . python-mode)
 
   :init
   (setq-default indent-tabs-mode nil)
 
   :config
-  (setq python-indent-offset 4)
+  (progn (setq python-shell-interpreter "python3.8")
+	 (setq python-indent-offset 4)
+	 (setq python-shell-completion-native-disabled-interpreters '("python")))
+
+  ;; When using Emacs 24.1 on Mac OS X compiled via homebrew. The python-shell always used US-ASCII as encoding
+  ;; To fix this
+  (when (memq window-system '(mac ns x))
+    (setenv "LC_CTYPE" "UTF-8")
+    (setenv "LC_ALL" "en_US.UTF-8")
+    (setenv "LANG" "en_US.UTF-8"))
   (add-hook 'python-mode-hook 'smartparens-mode)
   (add-hook 'python-mode-hook 'color-identifiers-mode)
   (require 'multi-line)
   (global-set-key (kbd "C-c d") 'multi-line))
 
-;; (use-package py-autopep8
-;;   :after python
-;;   ;; :ensure-system-package (autopep8 . py37-autopep8)
-;;   :hook (python-mode . py-autopep8-enable-on-save)
-;;   :init (setq py-autopep8-options '("--max-line-length=79")))
-
-(use-package jedi
-  :ensure t
-  :after company
-  :init
-  (add-to-list 'company-backends 'company-jedi)
-  :config
-  (use-package company-jedi
-    :ensure t
-    :init
-    (add-to-list 'company-backends 'company-jedi))
-  (setq company-jedi-python-bin "python"))
-
 (use-package elpy
+  :after python
   :ensure t
-  :commands elpy-enable
-  :init (with-eval-after-load 'python (elpy-enable))
-
   :config
-  ;; Automatically run Black on buffer save
+  (elpy-enable)
+  (setq elpy-rpc-python-command "python3.8")
+  (defalias 'workon 'pyvenv-workon)
+  ;; use flycheck instead of flymake
   (add-hook 'elpy-mode-hook
             '(lambda ()
                (when (eq major-mode 'python-mode)
                  (add-hook 'before-save-hook 'elpy-black-fix-code))))
+  (when (load "flycheck" t t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
   (electric-indent-local-mode -1)
   (delete 'elpy-module-highlight-indentation elpy-modules)
-  (delete 'elpy-module-flymake elpy-modules)
 
   (defun ha/elpy-goto-definition ()
     (interactive)
@@ -406,7 +396,54 @@
       ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
 
   :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-                             ha/elpy-goto-definition)))
+                             ha/elpy-goto-definition))
+)
+
+(use-package pyenv-mode
+  :ensure t
+  :init
+  (add-to-list 'exec-path "~/.pyenv/shims")
+  (setenv "WORKON_HOME" "~/.pyenv/versions/")
+  :config
+  (pyenv-mode))
+
+(use-package flycheck
+  :ensure t
+  :diminish ""
+  :init
+  (progn
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+    (setq-default flycheck-disabled-checkers '(python-pylint))
+    (flycheck-add-next-checker 'python-flake8 'python-pylint)
+    )
+  :config
+  (global-flycheck-mode 1)
+  (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq flycheck-flake8rc "~/.emacs.d/flake8_config/flake8.cfg")
+  (setq flycheck-python-flake8-executable "flake8")
+  (add-hook 'pyhon-mode-local-vars-hook
+            (lambda ()
+              (when (flycheck-may-enable-checker 'python-flake8)
+                (flycheck-select-checker 'python-flake8))))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  )
+
+(defun projectile-pyenv-mode-set ()
+  "Set pyenv version matching project name."
+  (let ((project (projectile-project-name)))
+    (if (member project (pyenv-mode-versions))
+        (pyenv-mode-set project)
+      (pyenv-mode-unset))))
+
+(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+
+(use-package company-jedi
+  :ensure t
+  :init
+  (defun my/python-mode-hook ()
+    (add-to-list 'company-backends 'company-jedi))
+  (add-hook 'python-mode-hook 'my/python-mode-hook))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -497,7 +534,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]))
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(package-selected-packages
+   '(flycheck-pycheckers pyenv-mode-auto pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex)))
+
 
 
 (with-eval-after-load 'ox-latex
@@ -515,3 +555,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
