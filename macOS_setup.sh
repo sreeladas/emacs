@@ -3,31 +3,27 @@
 # Welcome to the on-boarding script!
 # MacOS basic utility installs for labs and
 # Some recommended customizations for those without stronger opinions
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homesudo apt/install/master/install)"
 
-brew update
-brew upgrade --all
+sudo apt update
+sudo apt upgrade
 
-brew install python3
+sudo apt install python3
 
 # Maybe just pick one of the two, or stick with vim or use spacemacs instead
-# brew cask install pycharm-ce
-brew cask install emacs
+# sudo apt install pycharm-ce
+sudo apt install emacs
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
 
-brew cask install sequel-pro
+sudo apt install iterm2
 
-brew cask install iterm2
+sudo apt install zsh zsh-completions zsh-syntax-highlighting
 
-brew install zsh zsh-completions zsh-syntax-highlighting
+sudo apt install git
 
-brew instal git
-
-brew cask install postman
-
-brew cask install docker
+sudo apt install docker
 
 
 # Mods to zshrc
