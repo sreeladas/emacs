@@ -53,6 +53,7 @@
 ;; hide toolbar and scroll bar
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; overwrite selected text on type - exceptions in latex mode/yasnippet
 (delete-selection-mode t)
