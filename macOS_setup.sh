@@ -1,28 +1,28 @@
 #!/bin/sh
 
 # Welcome to the on-boarding script!
-# MacOS basic utility installs for labs and
-# Some recommended customizations for those without stronger opinions
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homesudo apt/install/master/install)"
-
+# Ubuntu basic utility installs for Sreela
+# Some recommended customizations based on past experience
 sudo apt update
 sudo apt upgrade
 
-sudo apt install python3
 
-# Maybe just pick one of the two, or stick with vim or use spacemacs instead
-# sudo apt install pycharm-ce
+# This is the section with the main "dev-tools"
 sudo apt install emacs
+cp -r ./systemd/* ~/.config/systemd/user/
+cp ./autostart/emacs.desktop ~/.config/autostart/
 
+sudo apt install python3
+sudo apt install python3-pip
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
 
-sudo apt install iterm2
 
+sudo apt install guake
+cp ./autostart/guake.desktop ~/.config/autostart/
 sudo apt install zsh zsh-completions zsh-syntax-highlighting
 
 sudo apt install git
-
 sudo apt install docker
 
 
@@ -42,41 +42,24 @@ append_to_zshrc() {
   fi
 }
 
-read -p "Would you like to download the suggested (appearance) customizations for iterm2? (y/n)" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then    
-    # Optional mods for iterm2
-    pushd $HOME/Documents/
-    
-    # Gets color scheme. Need to activate in iterm2 preferences
-    curl -O https://raw.githubusercontent.com/Clovis-team/clovis-open-code-extracts/master/utils/Clovis-iTerm2-Color-Scheme.itermcolors
-    
-    # Gets a font that can handle glyphs. Need to activate in iterm2 preferences
-    curl -O https://github.com/powerline/fonts/blob/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf
-    
-    # Gets some fun features that shows you current git branch etc. Need to activate by adding this into ~/.zshrc
-    git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-    popd
+# Optional mods for iterm2
+pushd $HOME/Documents/
 
-    append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
+# Gets some fun features that shows you current git branch etc. Need to activate by adding this into ~/.zshrc
+git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+popd
+
+append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
 ZSH_THEME="powerlevel10k/powerlevel10k"'
 
-    append_to_zshrc '# Once powerlevel10k is installed and activated, this activates the version control features
+append_to_zshrc '# Once powerlevel10k is installed and activated, this activates the version control features
 POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)'
 
-    append_to_zshrc '# This shows the status, background jobs and history time
+append_to_zshrc '# This shows the status, background jobs and history time
 POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)'
 
-    append_to_zshrc '# This puts the cursor on a new which is useful if you have long directory names or long git repo names
+append_to_zshrc '# This puts the cursor on a new which is useful if you have long directory names or long git repo names
 POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
-fi
-echo "To implement these, you will need to open: 
-iterm2 > Preferences > Profiles > Colors > Color Presets > Import 
-       and find Clovis in the browser 
-iterm2 > Preference > Profiles > Text > Change Font > find 
-       the Source Code Pro font. 
-Read more about this at https://medium.com/@Clovis_app/configuration-of-a-beautiful-efficient-terminal-and-prompt-on-osx-in-7-minutes-827c29391961"
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
@@ -95,3 +78,28 @@ alias .4='cd ../../../../'
 
 # git aliases
 alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"
+
+# Add personal packages
+# NOTE: These instructions only work for 64 bit Debian-based
+# Linux distributions such as Ubuntu, Mint etc.
+
+# 1. Install our official public software signing key
+wget -O- https://updates.signal.org/desktop/apt/keys.asc |\
+  sudo apt-key add -
+
+# 2. Add our repository to your list of repositories
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" |\
+  sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+
+# 3. Update your package database and install signal
+sudo apt update && sudo apt install signal-desktop
+
+
+# Add fusuma for gesture inputs
+sudo gpasswd -a $USER input
+newgrp input
+sudo apt install libinput-tools
+sudo apt install ruby
+sudo gem install fusuma
+sudo apt install xdotool
+cp ./autostart/fusuma.desktop ~/.config/autostart/
