@@ -14,6 +14,7 @@ cp ./autostart/emacs.desktop ~/.config/autostart/
 
 sudo apt install python3
 sudo apt install python3-pip
+sudo apt install pipenv
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
 
@@ -63,6 +64,9 @@ POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
+alias pipins='pipenv install'
+alias ins='sudo apt install'
+alias upgrage='sudo apt update && sudo apt upgrade'
 alias dbuild='docker build -t api:latest .'
 alias drun='docker run -p 8080:8080 api:latest'
 alias drun_with_volumes='docker run -p 8080:8080 -v $PWD api:latest'
