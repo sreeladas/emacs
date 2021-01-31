@@ -345,18 +345,16 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq python-shell-interpreter "python3.8")
-
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   ("\\.wsgi$" . python-mode)
-  :interpreter ("python3.8" . python-mode)
+  :interpreter ("python" . python-mode)
 
   :init
   (setq-default indent-tabs-mode nil)
 
   :config
-  (progn (setq python-shell-interpreter "python3.8")
+  (progn (setq python-shell-interpreter "python")
 	 (setq python-indent-offset 4)
 	 (setq python-shell-completion-native-disabled-interpreters '("python")))
 
@@ -376,7 +374,7 @@
   :ensure t
   :config
   (elpy-enable)
-  (setq elpy-rpc-python-command "python3.8")
+  (setq elpy-rpc-python-command "python")
   (defalias 'workon 'pyvenv-workon)
   ;; use flycheck instead of flymake
   (add-hook 'elpy-mode-hook
@@ -450,24 +448,24 @@
 ;; ;;;;;;;;;;;;;;;;        LaTeX         ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package tex
-;;   :ensure auctex
-;;   :mode ("\\.tex\\'" . TeX-latex-mode)
-;;   :commands (TeX-command-run-all TeX-clean)
-;;   :bind (:map LaTeX-mode-map
-;; 	          ("M-p" . latex-do-everything))
-;;   :config
-;;   (setq TeX-auto-save t)
-;;   (setq-default LaTeX-clean-intermediate-suffixes t)
-;;   ;; ##### changing default master file from current file to main.tex
-;;   (setq-default TeX-master nil)
-;;   (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
-;;   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-;;   (defun latex-do-everything ()
-;;     "Save the buffer and run 'TeX-command-run-all'."
-;;     (interactive)
-;;     (save-buffer)
-;;     (TeX-command-run-all nil)))
+(use-package tex
+  :ensure auctex
+  :mode ("\\.tex\\'" . TeX-latex-mode)
+  :commands (TeX-command-run-all TeX-clean)
+  :bind (:map LaTeX-mode-map
+	          ("M-p" . latex-do-everything))
+  :config
+  (setq TeX-auto-save t)
+  (setq-default LaTeX-clean-intermediate-suffixes t)
+  ;; ##### changing default master file from current file to main.tex
+  (setq-default TeX-master nil)
+  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (defun latex-do-everything ()
+    "Save the buffer and run 'TeX-command-run-all'."
+    (interactive)
+    (save-buffer)
+    (TeX-command-run-all nil)))
 
 
 ;; Spellcheck
@@ -477,32 +475,27 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
 ;; ;; Set PDFTools as the default PDF viewer to use pdfview with auctex
-;; (pdf-tools-install)
-;; (use-package pdf-tools
-;;   :pin manual ;; manually update
-;;   :config
-;;   ;; initialise
-;;   (pdf-tools-install)
-;;   ;; open pdfs scaled to fit page
-;;   (setq-default pdf-view-display-size 'fit-page)
-;;   ;; automatically annotate highlights
-;;   (setq pdf-annot-activate-created-annotations t)
-;;   ;; use normal isearch
-;;   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+(pdf-tools-install)
+(use-package pdf-tools
+  :pin manual ;; manually update
+  :config
+  ;; initialise
+  (pdf-tools-install)
+  ;; open pdfs scaled to fit page
+  (setq-default pdf-view-display-size 'fit-page)
+  ;; automatically annotate highlights
+  (setq pdf-annot-activate-created-annotations t)
+  ;; use normal isearch
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
-;; (server-start)
-;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-;;       Tex-source-correlate-mode t
-;;       LaTeX-command "latex --synctex=1") ;; optional: enable synctex
+(server-start)
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      Tex-source-correlate-mode t
+      LaTeX-command "latex --synctex=1") ;; optional: enable synctex
 
-;; ;; to have the buffer refresh after compilation
-;; (add-hook 'TeX-after-compilation-finished-functions
-;;           #'TeX-revert-document-buffer)
-
-;; yasnippet
-;; wrap in parentheses C-L
-;; wrap in $-signs C-$
-;; wrap in quotes C-'
+;; to have the buffer refresh after compilation
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
 ;; (use-package yasnippet
 ;;   :config
