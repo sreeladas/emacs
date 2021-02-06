@@ -24,8 +24,29 @@ cp ./autostart/guake.desktop ~/.config/autostart/
 sudo apt install zsh zsh-completions zsh-syntax-highlighting
 
 sudo apt install git
-sudo apt install docker
+sudo apt remove docker docker-compose docker-engine docker.io containerd runc
+sudo apt update && sudo apt upgrade
 
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+
+read -p "Is this the correct key? (y/n)" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+   sudo add-apt-repository \
+         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+         $(lsb_release -cs) \
+         stable"
+   sudo apt install docker-ce docker-ce-cli containerd.io
+   sudo docker run hello-world
+   sudo groupadd docker
+   sudo usermod -aG docker $USER
+   newgrp docker
+   sudo systemctl enable docker.service
+   sudo systemctl enable containerd.service
+   
+fi
 
 # Mods to zshrc
 if [ -w "$HOME/.zshrc.local" ]; then
