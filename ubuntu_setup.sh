@@ -75,7 +75,7 @@ append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git bra
 ZSH_THEME="powerlevel10k/powerlevel10k"'
 
 append_to_zshrc '# Once powerlevel10k is installed and activated, this activates the version control features
-POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)'
+POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir virtualenv vcs)'
 
 append_to_zshrc '# This shows the status, background jobs and history time
 POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)'
