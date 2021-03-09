@@ -21,7 +21,7 @@
 
 (setq package-list
       ;; auctex pdf-tools
-      '(bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      '(bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors pipenv pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
 (setq package-enable-at-startup nil
@@ -345,20 +345,20 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq python-shell-interpreter "python3.8")
+(setq python-shell-interpreter "~/.pyenv/versions/3.8.6/bin/python3.8")
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   ("\\.wsgi$" . python-mode)
-  :interpreter ("python3.8" . python-mode)
+  :interpreter ("python" . python-mode)
 
   :init
   (setq-default indent-tabs-mode nil)
 
   :config
-  (progn (setq python-shell-interpreter "python3.8")
+  (progn (setq python-shell-interpreter "~/.pyenv/versions/3.8.6/bin/python3.8")
 	 (setq python-indent-offset 4)
-	 (setq python-shell-completion-native-disabled-interpreters '("python")))
+	 (setq python-shell-completion-native-disabled-interpreters '("~/.pyenv/versions/3.8.6/bin/python3.8")))
 
   ;; When using Emacs 24.1 on Mac OS X compiled via homebrew. The python-shell always used US-ASCII as encoding
   ;; To fix this
@@ -376,7 +376,7 @@
   :ensure t
   :config
   (elpy-enable)
-  (setq elpy-rpc-python-command "python3.8")
+  (setq elpy-rpc-python-command "~/.pyenv/versions/3.8.6/bin/python3.8")
   (defalias 'workon 'pyvenv-workon)
   ;; use flycheck instead of flymake
   (add-hook 'elpy-mode-hook
@@ -402,7 +402,7 @@
 (use-package pyenv-mode
   :ensure t
   :init
-  (add-to-list 'exec-path "~/.pyenv/shims")
+  (add-to-list 'exec-path "~/.pyenv/versions/")
   (setenv "WORKON_HOME" "~/.pyenv/versions/")
   :config
   (pyenv-mode))
@@ -437,6 +437,13 @@
       (pyenv-mode-unset))))
 
 (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+
+(use-package pipenv
+  :hook (python-mode . pipenv-mode)
+  :init
+  (setq
+   pipenv-projectile-after-switch-function
+   #'pipenv-projectile-after-switch-extended))
 
 (use-package company-jedi
   :ensure t
@@ -536,7 +543,8 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(package-selected-packages
-   '(flycheck-pycheckers pyenv-mode-auto pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex)))
+   '(blacken pipenv flycheck-pycheckers pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex))
+ '(pyenv-mode t))
 
 
 
