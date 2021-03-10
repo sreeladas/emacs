@@ -20,8 +20,7 @@
 ;; list the packages you want
 
 (setq package-list
-      ;; auctex pdf-tools
-      '(bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      '(auctex pdf-tools bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors multi-line pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
 (setq package-enable-at-startup nil
@@ -30,6 +29,7 @@
 ;; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
+
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
@@ -39,6 +39,10 @@
   (normal-top-level-add-subdirs-to-load-path))
 (eval-when-compile (require 'use-package))
 
+(add-to-list 'load-path "~/.emacs.d/elpa/auctex-13.0.4/latex.el")
+(load "~/.emacs.d/elpa/auctex-13.0.4/auctex.el" nil t t)
+(load "~/.emacs.d/elpa/auctex-13.0.4/preview.el" nil t t)
+(load "~/.emacs.d/elpa/auctex-13.0.4/latex.el" nil t t)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;      Appearance/Miscellaneous     ;;;;;;;;;;
@@ -68,6 +72,12 @@
 
 (show-paren-mode t)
 (setq show-paren-style 'expression)
+
+;; (use-package yasnippet
+;;   :config
+;;   (yas-global-mode 1)
+;;   (yas-load-directory "~/.emacs.d/elpa/yasnippet-20190724.1204/snippets/"))
+
 
 ;; smart tabs for the frequently used languages
 (use-package smart-tabs-mode
@@ -449,29 +459,30 @@
 ;; ;;;;;;;;;;;;;;;;        LaTeX         ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package tex
+(use-package auctex
+  :defer t
   :ensure auctex
-  :mode ("\\.tex\\'" . TeX-latex-mode)
-  :commands (TeX-command-run-all TeX-clean)
   :bind (:map LaTeX-mode-map
-	          ("M-p" . latex-do-everything))
+              ("C-c C-c" .
+               (lambda ()
+                 (interactive)
+                 (save-buffer)
+                 (TeX-command-run-all nil))))
+  :hook (('LaTeX-mode (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
+         ('LaTeX-mode 'flyspell-mode))
+  :commands (TeX-command-run-all TeX-clean)
   :config
+  (setq tab-width 2)
+  (add-hook 'TeX-after-compilation-finished-functions)
   (setq TeX-auto-save t)
+  (setq TeX-PDF-mode t)
   (setq-default LaTeX-clean-intermediate-suffixes t)
   ;; ##### changing default master file from current file to main.tex
-  (setq-default TeX-master nil)
-  (add-hook 'LaTeX-mode-hook (lambda () (setq TeX-master (concat (projectile-project-root) "./main.tex"))))
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (defun latex-do-everything ()
-    "Save the buffer and run 'TeX-command-run-all'."
-    (interactive)
-    (save-buffer)
-    (TeX-command-run-all nil)))
-
+  (setq-default TeX-master nil))
 
 ;; Spellcheck
 (use-package flyspell
-  :ensure
+  :ensure t
   :config
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
@@ -487,16 +498,17 @@
   ;; automatically annotate highlights
   (setq pdf-annot-activate-created-annotations t)
   ;; use normal isearch
-  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
 
-(server-start)
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      Tex-source-correlate-mode t
-      LaTeX-command "latex --synctex=1") ;; optional: enable synctex
+  (server-start)
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        Tex-source-correlate-mode t
+        LaTeX-command "latex --synctex=1") ;; optional: enable synctex
 
-;; to have the buffer refresh after compilation
-(add-hook 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
+  ;; to have the buffer refresh after compilation
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
+  )
 
 ;; (use-package yasnippet
 ;;   :config
@@ -533,15 +545,6 @@
    '(flycheck-pycheckers pyenv-mode-auto pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex)))
 
 
-
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-               '("article"
-                 "\\documentclass{article}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
