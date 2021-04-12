@@ -16,6 +16,7 @@ brew cask install emacs
 
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
+pip3 install poetry
 
 brew cask install sequel-pro
 
@@ -28,6 +29,7 @@ brew instal git
 brew cask install postman
 
 brew cask install docker
+brew install docker-compose
 
 
 # Mods to zshrc
@@ -96,6 +98,22 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
+
+# poetry aliases to install a package, enter a shell, remove a package
+alias poadd='poetry add'
+alias poins='poetry install'
+alias posh='poetry shell'
+alias pore='poetry remove'
+
+pathmunge () {
+        if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
+           if [ "$2" = "after" ] ; then
+              PATH="$PATH:${1:A}"
+           else
+              PATH="${1:A}:$PATH"
+           fi
+        fi
+}
 
 # git aliases
 alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"

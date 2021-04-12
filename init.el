@@ -422,6 +422,8 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq flycheck-flake8rc "~/.emacs.d/flake8_config/flake8.cfg")
   (setq flycheck-python-flake8-executable "flake8")
+  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
+
   (add-hook 'pyhon-mode-local-vars-hook
             (lambda ()
               (when (flycheck-may-enable-checker 'python-flake8)
@@ -445,12 +447,18 @@
    pipenv-projectile-after-switch-function
    #'pipenv-projectile-after-switch-extended))
 
-(use-package company-jedi
-  :ensure t
-  :init
-  (defun my/python-mode-hook ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'my/python-mode-hook))
+  (use-package jedi
+   :ensure t
+   :config
+   (use-package company-jedi
+     :ensure t
+     :init
+     (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+     (setq company-jedi-python-bin "python"))
+   (setq jedi:setup-keys t)
+   (setq jedi:complete-on-dot t)
+   (add-hook 'python-mode-hook 'jedi:setup)
+   (add-to-list 'company-backends 'company-jedi))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -543,7 +551,7 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(package-selected-packages
-   '(blacken pipenv flycheck-pycheckers pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex))
+   '(jedi-direx lsp-jedi blacken pipenv flycheck-pycheckers pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex))
  '(pyenv-mode t))
 
 
