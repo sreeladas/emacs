@@ -6,24 +6,36 @@
 sudo apt update
 sudo apt upgrade
 
+# This is to install gnome-clocks
+sudo add-apt-repository universe
+sudo apt install gnome-clocks
 
 # This is the section with the main "dev-tools"
 sudo apt install emacs
 cp -r ./systemd/* ~/.config/systemd/user/
 cp ./autostart/emacs.desktop ~/.config/autostart/
 
+# Install python, poetry and jupyter
 sudo apt install python3
 sudo apt install python3-pip
-sudo apt install pipenv
+sudo apt install poetry
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
 
-
+# Install guake and zsh
 sudo apt install guake
 cp ./autostart/guake.desktop ~/.config/autostart/
 sudo apt install zsh zsh-completions zsh-syntax-highlighting
 
+# Install git and github cli
 sudo apt install git
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+sudo apt-add-repository https://cli.github.com/packages
+sudo apt update
+sudo apt install gh
+
+
+# Install docker and docker-compose
 sudo apt remove docker docker-compose docker-engine docker.io containerd runc
 sudo apt update && sudo apt upgrade
 
@@ -68,7 +80,11 @@ append_to_zshrc() {
 pushd $HOME/Documents/
 
 # Gets some fun features that shows you current git branch etc. Need to activate by adding this into ~/.zshrc
-git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+gh repo clone romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+for repo_name in "sreeladas" "sreeladas.github.io" "emacs" "CV"; do
+    gh repo clone sreeladas/$repo_name;
+done;
+
 popd
 
 append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
@@ -85,7 +101,8 @@ POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
-alias pipins='pipenv install'
+alias pipins='poetry add'
+alias pipun='poetry remove'
 alias ins='sudo apt install'
 alias upgrage='sudo apt update && sudo apt upgrade'
 alias dbuild='docker build -t api:latest .'
