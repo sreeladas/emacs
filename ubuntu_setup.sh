@@ -107,8 +107,10 @@ POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
 
 append_to_zshrc "# General alias section 
 # Useful aliases for docker
-alias pipins='poetry add'
-alias pipun='poetry remove'
+alias poadd='poetry add'
+alias poins='poetry install'
+alias posh='poetry shell'
+alias pore='poetry remove'
 alias ins='sudo apt install'
 alias upgrage='sudo apt update && sudo apt upgrade'
 alias dbuild='docker build -t api:latest .'
