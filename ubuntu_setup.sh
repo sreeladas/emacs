@@ -43,6 +43,10 @@ sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent softwa
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
 
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
 read -p "Is this the correct key? (y/n)" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -87,6 +91,8 @@ done;
 
 popd
 
+append_to_zshrc '# Sets plugins for oh-my-zsh with auto-complete for docker and git info in the
+plugins=(git docker docker-compose)'
 append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
 ZSH_THEME="powerlevel10k/powerlevel10k"'
 
