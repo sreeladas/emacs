@@ -11,8 +11,8 @@ chmod u+x macOS_setup.sh
 
 Open macOS_setup.sh in your fav text editor to make sure you're not going to break anything or add unwanted things -- if you work in bash, don't use my zsh setup, that kind of thing
 
+Note: the only part that will not be confirmed with you prior to being run is the installation of [Homebrew](https://brew.sh/). Most of this script cannot be run without brew installed though.
+
 ```
 ./macOS_setup.sh
 ```
-
-Note: the only part that will not be confirmed with you are the installation of [Homebrew](https://brew.sh/). Most of this script cannot be run without brew installed though, so buyer beware.

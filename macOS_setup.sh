@@ -5,15 +5,15 @@
 # Some recommended customizations for those without stronger opinions
 
 # Installs homebrew, a command line package manager for macOS (similar to those for linux, or e.g. pip for python)
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# /usr/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Updates homebrew repositories
-brew update
-brew upgrade --all
+# # Updates homebrew repositories
+# brew update
+# brew upgrade --all
 
 # Installs python 3.x.x, at the moment, this is 3.9.1, this version of python should really only be used for e.g. pre-commit environments or for installing poetry.
 RELPY=''
-echo -n "Would you like to install python 3.x.x from Homebrew? (see https://formulae.brew.sh/formula/python@3.9#default ):  "
+echo -n "Would you like to install python 3.x.x from Homebrew? (see https://formulae.brew.sh/formula/python@3.9#default ) (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[1]$ ]]
 then
@@ -23,7 +23,7 @@ fi
 # Installs your preferred IDE
 # Pick your favourite of the following, or stick with vim or use spacemacs instead
 RELPY=''
-echo -n "Would you like to install one of the preferred IDE/text-editors?\n1 - PyCharm \n2 - PyCharm Community Edition (No License) \n3 - VSCode \n4 - Emacs\n\n0 - No thanks I'll setup my own IDE:  "
+echo -n "Would you like to install one of the preferred IDE/text-editors?\n1 - PyCharm \n2 - PyCharm Community Edition (No License) \n3 - VSCode \n4 - Emacs\n\n0 - No thanks I'll setup my own IDE (0/1/2/3/4):  "
 read REPLY
 if [[ $REPLY =~ ^[1]$ ]]
 then
@@ -43,7 +43,7 @@ echo "\n"
 
 # Upgrades pip and installs jupyter to use jupyter notebooks
 RELPY=''
-echo -n "Would you like to install jupyter to locally run jupyter notebooks?:  "
+echo -n "Would you like to install jupyter to locally run jupyter notebooks? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -54,7 +54,7 @@ fi
 
 # Installs poetry, for environment management
 RELPY=''
-echo -n "Would you like to install poetry for local python environment management?:  "
+echo -n "Would you like to install poetry for local python environment management? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -63,7 +63,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install sequel-pro to explore databases and for interactive query editing?:  "
+echo -n "Would you like to install sequel-pro to explore databases and for interactive query editing? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -72,7 +72,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install iterm2 to replace the macOS terminal? (see https://iterm2.com/ for reference on features)?:  "
+echo -n "Would you like to install iterm2 to replace the macOS terminal? (see https://iterm2.com/ for reference on features)? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -81,7 +81,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install oh-my-zsh for command line helper functions (see https://ohmyz.sh/)?:  "
+echo -n "Would you like to install oh-my-zsh for command line helper functions (see https://ohmyz.sh/)? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -90,7 +90,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install git for version control?:  "
+echo -n "Would you like to install git for version control? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -99,7 +99,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install postman for testing/accessing of APIs (see https://www.postman.com/ )?:  "
+echo -n "Would you like to install postman for testing/accessing of APIs (see https://www.postman.com/ )? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -108,7 +108,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install docker and docker compose for running containerized apps and development environments (see https://docs.docker.com/engine/ )?:  "
+echo -n "Would you like to install docker and docker compose for running containerized apps and development environments (see https://docs.docker.com/engine/ )? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
