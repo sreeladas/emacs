@@ -12,7 +12,13 @@ brew update
 brew upgrade --all
 
 # Installs python 3.x.x, at the moment, this is 3.9.1, this version of python should really only be used for e.g. pre-commit environments or for installing poetry.
-brew install python3
+RELPY=''
+echo -n "Would you like to install python 3.x.x from Homebrew? (see https://formulae.brew.sh/formula/python@3.9#default ):  "
+read REPLY
+if [[ $REPLY =~ ^[1]$ ]]
+then
+    brew install python3
+fi
 
 # Installs your preferred IDE
 # Pick your favourite of the following, or stick with vim or use spacemacs instead

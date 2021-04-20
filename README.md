@@ -14,3 +14,5 @@ Open macOS_setup.sh in your fav text editor to make sure you're not going to bre
 ```
 ./macOS_setup.sh
 ```
+
+Note: the only part that will not be confirmed with you are the installation of [Homebrew](https://brew.sh/). Most of this script cannot be run without brew installed though, so buyer beware.
