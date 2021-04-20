@@ -5,11 +5,11 @@
 # Some recommended customizations for those without stronger opinions
 
 # Installs homebrew, a command line package manager for macOS (similar to those for linux, or e.g. pip for python)
-# /usr/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/usr/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# # Updates homebrew repositories
-# brew update
-# brew upgrade --all
+# Updates homebrew repositories
+brew update
+brew upgrade --all
 
 # Installs python 3.x.x, at the moment, this is 3.9.1, this version of python should really only be used for e.g. pre-commit environments or for installing poetry.
 RELPY=''
