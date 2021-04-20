@@ -54,7 +54,7 @@ fi
 
 # Installs poetry, for environment management
 RELPY=''
-echo -n "Would you like to install poetry for local python environment management? (y/n):  "
+echo -n "Would you like to install poetry for local python environment management (see more https://python-poetry.org/ )? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -63,7 +63,7 @@ then
 fi
 
 RELPY=''
-echo -n "Would you like to install sequel-pro to explore databases and for interactive query editing? (y/n):  "
+echo -n "Would you like to install sequel-pro to explore databases and for interactive query editing (see more https://www.sequelpro.com/ )? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
