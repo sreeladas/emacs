@@ -237,9 +237,9 @@ pathmunge () {
               PATH='$PATH:${1:A}'
            else
               PATH='${1:A}:$PATH'
-              echo "\n"
+              echo '\n'
 fi
-        echo "\n"
+        echo '\n'
 fi
 }
 
