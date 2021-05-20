@@ -44,6 +44,16 @@ fi
 echo "\n"
 
 
+# Installs sequel-pro, for environment management
+REPLY=''
+echo -n "Would you like to install sequel-pro for database management and SQL editing (see more at https://www.sequelpro.com/ )? (y/n):  "
+read REPLY
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    brew install --cask sequel-pro
+    echo "\n"
+fi
+
 # Upgrades pip and installs jupyter to use jupyter notebooks
 REPLY=''
 echo -n "Would you like to install jupyter to locally run jupyter notebooks? (y/n):  "
