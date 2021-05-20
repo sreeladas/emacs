@@ -23,6 +23,15 @@ then
     brew install python3
 fi
 
+# Installs pyenv. Pyenv will nicely handle python versions and allow you to not worry about system pythons
+REPLY=''
+echo -n "Would you like to install pyenv from Homebrew? (see https://github.com/pyenv/pyenv ) (y/n):  "
+read REPLY
+if [[ $REPLY =~ ^[1]$ ]]
+then
+    brew install pyenv
+fi
+
 # Installs your preferred IDE
 # Pick your favourite of the following, or stick with vim or use spacemacs instead
 REPLY=''
