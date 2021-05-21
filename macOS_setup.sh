@@ -63,14 +63,23 @@ then
     echo "\n"
 fi
 
+# Installs google cloud sdk. Cloud SDK give you a neat interface for interacting with google
+REPLY=''
+echo -n "Would you like to install google cloud sdk from Homebrew? (see https://cloud.google.com/sdk/docs/install ) (y/n):  "
+read REPLY
+if [[ $REPLY =~ ^[1]$ ]]
+then
+    brew install --cask google-cloud-sdk
+fi
+
 # Upgrades pip and installs jupyter to use jupyter notebooks
 REPLY=''
 echo -n "Would you like to install jupyter to locally run jupyter notebooks? (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    python3 -m pip install --upgrade pip
-    python3 -m pip install jupyter
+    sudo python3 -m pip install --upgrade pip
+    sudo python3 -m pip install jupyter
     echo "\n"
 fi
 
@@ -80,7 +89,7 @@ echo -n "Would you like to install poetry for local python environment managemen
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    pip3 install poetry
+    sudo pip3 install poetry
     echo "\n"
 fi
 
