@@ -57,3 +57,6 @@
 
 (setq +latex-viewers '(zathura))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
+(setq
+    org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
+)
