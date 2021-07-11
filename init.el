@@ -2,16 +2,46 @@
 ;; ;;;;;;;;;;;;;;        Initialize         ;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; External program
+;; proselint
+;; auctex
+;; poetry
+
 ;; speedup/sanity
 ;; gc-cons-threshold is the number of bytes of consing before a garbage collection is invoked.
 ;; It's normally set super low for compatibility with older machines, but any modern machine with decent RAM can handle 50MB of garbage
-;; (setq gc-cons-threshold 100000000)
+;; Fix the gc threshold after init is complete
+(setq gc-cons-threshold 10000000)
 
-;; Install from MELPA: 
+;; Restore after startup
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq gc-cons-threshold 1000000)
+            (message "gc-cons-threshold restored to %S"
+                     gc-cons-threshold)))
+;; Install from MELPA:
+(setq package-enable-at-startup nil)
+(setq package-archives '(("gnu" . "http://mirrors.163.com/elpa/gnu/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 
-(require 'package)
-;; Install auctex, rename yasnippet directory
-;; load emacs 24's package system. Add MELPA repository.
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package)
+  (eval-when-compile (require 'use-package)))
+(setq use-package-always-ensure t)
+
+
+;; Benchmark for debugging
+(use-package benchmark-init
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+(add-hook 'after-init-hook
+          (lambda () (message "loaded in %s" (emacs-init-time))))
+;; Install auctex
+;; load emacs 28's package system. Add MELPA repository.
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -26,7 +56,7 @@
 (setq package-enable-at-startup nil
       package--init-file-ensured t)
 
-;; fetch the list of packages available 
+;; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -51,6 +81,9 @@
 ;; save session on close
 (desktop-save-mode 1)
 
+;; enable columns number
+(column-number-mode 1)
+
 ;; set tab width to 4
 (setq tab-width 4) ; or any other preferred value
 
@@ -58,6 +91,9 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
+
+;; Always delete trailing white-spaces before saving
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; overwrite selected text on type - exceptions in latex mode/yasnippet
 (delete-selection-mode t)
@@ -69,6 +105,18 @@
 (global-set-key [(control shift up)]  'move-text-up)
 (global-set-key [(control shift down)]  'move-text-down)
 
+;; smartparens everywhere
+(use-package smartparens
+  :config
+  (add-hook 'prog-mode-hook 'smartparens-mode))
+
+;; Highlight parens etc. for improved readability.
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+;; Expand parens
+(add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (show-paren-mode t)
 (setq show-paren-style 'expression)
@@ -147,7 +195,7 @@
 
 (global-linum-mode t)              ;; enable line numbers globally
 (setq linum-format "%4d \u2502 ")  ;; format line number spacing
-;; Allow hash to be entered  
+;; Allow hash to be entered
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 ;; no-littering
@@ -202,7 +250,7 @@
                        (projectile-cleanup-known-projects)
                        (projectile-discover-projects-in-search-path))))
   :bind-keymap (("C-c p" . projectile-command-map)
-		        ("s-p" . projectile-command-map)) 
+		        ("s-p" . projectile-command-map))
   :config
 
   (projectile-global-mode))
@@ -252,21 +300,32 @@
   ("C-c C-<" . mc/mark-all-like-this))
 
 ;; outline-magic
-(add-hook 'outline-mode-hook 
-          (lambda () 
+(add-hook 'outline-mode-hook
+          (lambda ()
             (require 'outline-cycle)))
 
-(add-hook 'outline-minor-mode-hook 
-          (lambda () 
+(add-hook 'outline-minor-mode-hook
+          (lambda ()
             (require 'outline-magic)
             (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
+
+;; Consolidate backups
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+    backup-by-copying t    ; Don't delink hardlinks
+    version-control t      ; Use version numbers on backups
+    delete-old-versions t  ; Automatically delete excess backups
+    kept-new-versions 20   ; how many of the newest versions to keep
+    kept-old-versions 5    ; and how many of the old
+    )
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
+(use-package magit
+  :bind ("C-x g" . magit-status))
+(use-package git-gutter
+    :config
+    (global-git-gutter-mode 't))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;        Org mode        ;;;;;;;;;;;;;;;;
@@ -281,13 +340,13 @@
   (define-key global-map (kbd "C-c c") 'org-capture)
   (setq org-log-done t)
   (setq org-agenda-start-day "+0d")
-  
+
   (setq org-directory "~/code/")
   (setq org-default-notes-file (concat org-directory "master_todo.org"))
   (setq org-agenda-files (list "/Users/sreela/code/master_todo.org"))
   (with-eval-after-load 'org-agenda
     (add-to-list 'org-agenda-prefix-format '(todo . "  %b")))
-  
+
   ;;set priority range from A to C with default A
   (setq org-highest-priority ?A)
   (setq org-lowest-priority ?E)
@@ -303,19 +362,19 @@
 
   ;; Always use all children to calculate cookie data
   (setq org-hierarchical-todo-statistics nil)
-  
+
   ;;set colours for priorities
   (setq org-priority-faces '((?A . (:foreground "firebrick3" :weight bold))
                              (?B . (:foreground "goldenrod3" :weight bold))
                              (?C . (:foreground "orange3"))
                              (?D . (:foreground "MediumPurple3"))
                              (?E . (:foreground "RosyBrown3"))))
-  
+
   (setq org-completion-use-ido t)
-  
+
   ;;open agenda in current window
   (setq org-agenda-window-setup (quote current-window))
-  
+
   ;;capture todo items using C-c c [custom project key]
   (setq org-capture-templates
         '(("c" "CS Streamlit" entry (file+headline "/Users/sreela/code/master_todo.org" "CS Streamlit Feature Request")
@@ -326,17 +385,17 @@
            "* TODO %T%?\n\n")
           ("n" "Add New Project" entry (file+headline "/Users/sreela/code/master_todo.org" "New Project [/]")
            "* TODO %T%?\n\n")))
-  
+
   ; Allow setting single tags without the menu
   (setq org-fast-tag-selection-single-key (quote expert))
-  
+
   ; For tag searches ignore tasks with scheduled and deadline dates
   (setq org-agenda-tags-todo-honor-ignore-options t)
-  
+
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)")
           (sequence "|" "CANCELLED(c)")))
-  
+
   (setq org-todo-keyword-faces
         '(("TODO" :foreground "firebrick" :weight bold)
           ("NEXT" :foreground "turquoise" :weight bold)
@@ -344,7 +403,7 @@
           ("WAITING" :foreground "tomato" :weight bold)
           ("CANCELLED" :foreground "olive drab" :weight bold)
           ("MEETING" :foreground "forest green" :weight bold)))
-  
+
   (setq org-todo-state-tags-triggers
         '(("CANCELLED" ("CANCELLED" . t))
           ("WAITING" ("WAITING" . t))
@@ -353,6 +412,32 @@
           ("NEXT" ("WAITING") ("CANCELLED"))
           ("DONE" ("WAITING") ("CANCELLED"))))
   )
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;        Writing        ;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package writegood-mode
+    :bind ("C-c g" . writegood-mode)
+    :config
+    (add-to-list 'writegood-weasel-words "actionable"))
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;        Go        ;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package go-mode
+  :config
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (with-eval-after-load 'cc-mode
+    (add-hook 'c-mode-common-hook
+              (lambda()
+                (add-hook 'before-save-hook #'my/c-save-hook nil t))))
+  )
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;        Rust        ;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package rust-mode)
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -408,14 +493,15 @@
                              ha/elpy-goto-definition))
 )
 
-(use-package pyenv-mode
+(use-package pipenv
   :ensure t
+  :hook (python-mode . pipenv-mode)
   :init
-  (add-to-list 'exec-path "~/.pyenv/shims")
-  (setenv "WORKON_HOME" "~/.pyenv/versions/")
-  :config
-  (pyenv-mode))
+  (setq
+   pipenv-projectile-after-switch-function
+   #'pipenv-projectile-after-switch-extended))
 
+;; Flycheck, needs proselint
 (use-package flycheck
   :ensure t
   :diminish ""
@@ -426,8 +512,12 @@
     (flycheck-add-next-checker 'python-flake8 'python-pylint)
     )
   :config
+
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (add-to-list 'flycheck-checkers 'proselint)
+  (setq-default flycheck-highlighting-mode 'lines)
   (global-flycheck-mode 1)
-  (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
+  ;; (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (setq flycheck-flake8rc "~/.emacs.d/flake8_config/flake8.cfg")
   (setq flycheck-python-flake8-executable "flake8")
@@ -436,8 +526,17 @@
               (when (flycheck-may-enable-checker 'python-flake8)
                 (flycheck-select-checker 'python-flake8))))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  )
-
+  (flycheck-define-checker proselint
+    "A linter for prose."
+    :command ("proselint" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+              (id (one-or-more (not (any " "))))
+              (message (one-or-more not-newline)
+                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+              line-end))
+    :modes (text-mode markdown-mode gfm-mode org-mode))
+)
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name."
   (let ((project (projectile-project-name)))
@@ -454,6 +553,33 @@
     (add-to-list 'company-backends 'company-jedi))
   (add-hook 'python-mode-hook 'my/python-mode-hook))
 
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;        Web/MD         ;;;;;;;;;;;;;;;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package web-mode
+  :mode ("\\.html\\'")
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-engines-alist
+        '(("django" . "focus/.*\\.html\\'")
+          ("ctemplate" . "realtimecrm/.*\\.html\\'"))))
+
+;; Web beautify prettifies html / css / js using js-beautify - install with npm install -g js-beautify.
+(use-package web-beautify
+  :bind (:map web-mode-map
+              ("C-c b" . web-beautify-html)
+              :map js2-mode-map
+              ("C-c b" . web-beautify-js)))
+
+;; Markdown support isn't built into Emacs, add it with markdown-mode.
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        LaTeX         ;;;;;;;;;;;;;;;;;
@@ -542,7 +668,7 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(package-selected-packages
-   '(flycheck-pycheckers pyenv-mode-auto pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex)))
+   '(markdown-mode web-beautify web-mode rust-mode go-mode writegood-mode git-gutter rainbow-delimiters smartparens benchmark-init flycheck-pycheckers pyenv-mode-auto pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex)))
 
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
