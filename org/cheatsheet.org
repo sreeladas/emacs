@@ -1,5 +1,9 @@
-<#+begin_quote
+#+TITLE: Doom Emacs Cheatsheet
 
+* Doom Emacs Cheatsheet
+
+<#+begin_quote
+Original copied from https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165
 SPC
     SPC: find file
     , switch buffer
