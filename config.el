@@ -58,5 +58,61 @@
 (setq +latex-viewers '(zathura))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
 (setq
-    org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
+    org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿" "◉" "○" "✸" "✿")
 )
+(setq doom-font (font-spec :family "Fira Code" :size 18)
+      ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 18)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18))
+
+;; Maximize emacs on load
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; Set redo keys to C-S-/
+(after! undo-fu
+  (map! :map undo-fu-mode-map "C-?" #'undo-fu-only-redo))
+
+;; Hide Emphasis markers in org-mode markup
+(after! org (setq org-hide-emphasis-markers t))
+
+
+;; Org agenda display
+(after! org-agenda
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-12:c%?-12t% s")
+          ;; Indent todo items by level to show nesting
+          (todo . " %i %-12:c%l")
+          (tags . " %i %-12:c")
+          (search . " %i %-12:c")))
+  (setq org-agenda-include-diary t))
+
+;; Add holidays to Agenda
+(package! indian-holidays)
+(package! canadian-holidays)
+
+
+;; Org Agenda
+(package! org-super-agenda)
+(use-package! org-super-agenda
+  :after org-agenda
+  :config
+  (setq org-super-agenda-groups '((:auto-dir-name t)))
+  (org-super-agenda-mode))
+
+;; Org Archive
+(use-package! org-archive
+  :after org
+  :config
+  (setq org-archive-location "archive.org::datetree/"))
+
+;; Org Clock
+(after! org-clock
+  (setq org-clock-persist t)
+  (org-clock-persistence-insinuate))
+
+;; Org Capture Templates
+;; (after! org
+;;   (add-to-list 'org-capture-templates
+;;              '(("l" "learn" entry
+;;                (file+headline +org-capture-todo-file "learn")
+;;                "* TODO %?\n :PROPERTIES:\n :CATEGORY: learn\n :END:\n %i\n"
+;;                :prepend t :kill-buffer t))
