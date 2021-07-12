@@ -14,6 +14,9 @@ SPC
     ` eval
     u universal arg
     x pop up scratch
+    o insert mode in a new line after line at point
+    O insert mode in a new line before line at point
+    A insert mode (append mode) at end of line
     ~ toggle last popup
     TAB workspace
         TAB Display tab bar
