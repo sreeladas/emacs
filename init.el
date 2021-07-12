@@ -21,7 +21,7 @@
 
 (setq package-list
       ;; auctex pdf-tools
-      '(bind-key company-jedi elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors pipenv pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
+      '(bind-key elpy epl flx flx-ido flycheck let-alist magit move-text multiple-cursors paradox poetry pkg-info projectile seq smart-tabs-mode smooth-scrolling spacemacs-theme use-package yasnippet))
 ;; activate all the packages
 (package-initialize)
 (setq package-enable-at-startup nil
@@ -39,10 +39,21 @@
   (normal-top-level-add-subdirs-to-load-path))
 (eval-when-compile (require 'use-package))
 
-
+(require 'paradox)
+(paradox-enable)
+(setq paradox-github-token "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")
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;      Appearance/Miscellaneous     ;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Disable bi-directional parsing
+(setq-default bidi-paragraph-direction 'left-to-right)
+
+;; disable bidi parenmtheses algorithm
+(if (version<= "27.1" emacs-version)
+    (setq bidi-inhibit-bpa t))
+(if (version<= "27.1" emacs-version)
+    (global-so-long-mode 1))
 
 ;; save session on close
 (desktop-save-mode 1)
@@ -125,8 +136,6 @@
         (kill-backward-chars 1))
     ad-do-it))
 
-;; company mode (autocomplete)
-(add-hook 'after-init-hook 'global-company-mode)
 
 (setq split-height-threshold nil
       split-width-threshold 160)
@@ -201,9 +210,17 @@
 ;;;; Company. Auto-completion, used for python mostly.
 (use-package company
   :ensure t
+  :defer t
+  :diminish
   :bind (("C-<tab>" . company-complete))
+  :init (global-company-mode)
   :config
-  (global-company-mode))
+  (setq company-dabbrev-other-buffers t
+        company-dabbrev-code-other-buffers t)
+  (global-company-mode)
+  :hook ((text-mode . company-mode)
+         (prog-mode . company-mode)))
+
 
 ;; code folding hs-minor-mode
 (defun toggle-selective-display (column)
@@ -241,14 +258,13 @@
   ("C-c C-<" . mc/mark-all-like-this))
 
 ;; outline-magic
-(add-hook 'outline-mode-hook 
-          (lambda () 
-            (require 'outline-cycle)))
-
-(add-hook 'outline-minor-mode-hook 
-          (lambda () 
-            (require 'outline-magic)
-            (define-key outline-minor-mode-map  (kbd "C-<tab>") 'outline-cycle)))
+(use-package outline-magic
+   :ensure t
+   :config
+   (eval-after-load 'outline
+     '(progn
+        (require 'outline-magic)
+        (define-key outline-minor-mode-map (kbd "<C-tab>") 'outline-cycle))))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;        Magit        ;;;;;;;;;;;;;;;;;
@@ -345,7 +361,7 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;        Python        ;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq python-shell-interpreter "~/.pyenv/versions/3.8.6/bin/python3.8")
+;; (setq python-shell-interpreter "python")
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
@@ -355,10 +371,12 @@
   :init
   (setq-default indent-tabs-mode nil)
 
+  :hook ((python-mode . jedi:setup))
   :config
-  (progn (setq python-shell-interpreter "~/.pyenv/versions/3.8.6/bin/python3.8")
-	 (setq python-indent-offset 4)
-	 (setq python-shell-completion-native-disabled-interpreters '("~/.pyenv/versions/3.8.6/bin/python3.8")))
+  (progn (setq python-shell-interpreter "python")
+         (setq python-indent-offset 4)
+         (setq python-shell-completion-native-disabled-interpreters '("python")))
+  (setq python-shell-completion-native-enable nil)
 
   ;; When using Emacs 24.1 on Mac OS X compiled via homebrew. The python-shell always used US-ASCII as encoding
   ;; To fix this
@@ -370,42 +388,6 @@
   (add-hook 'python-mode-hook 'color-identifiers-mode)
   (require 'multi-line)
   (global-set-key (kbd "C-c d") 'multi-line))
-
-(use-package elpy
-  :after python
-  :ensure t
-  :config
-  (elpy-enable)
-  (setq elpy-rpc-python-command "~/.pyenv/versions/3.8.6/bin/python3.8")
-  (defalias 'workon 'pyvenv-workon)
-  ;; use flycheck instead of flymake
-  (add-hook 'elpy-mode-hook
-            '(lambda ()
-               (when (eq major-mode 'python-mode)
-                 (add-hook 'before-save-hook 'elpy-black-fix-code))))
-  (when (load "flycheck" t t)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode))
-  (electric-indent-local-mode -1)
-  (delete 'elpy-module-highlight-indentation elpy-modules)
-
-  (defun ha/elpy-goto-definition ()
-    (interactive)
-    (condition-case err
-        (elpy-goto-definition)
-      ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-
-  :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-                             ha/elpy-goto-definition))
-)
-
-(use-package pyenv-mode
-  :ensure t
-  :init
-  (add-to-list 'exec-path "~/.pyenv/versions/")
-  (setenv "WORKON_HOME" "~/.pyenv/versions/")
-  :config
-  (pyenv-mode))
 
 (use-package flycheck
   :ensure t
@@ -431,34 +413,67 @@
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )
 
-(defun projectile-pyenv-mode-set ()
-  "Set pyenv version matching project name."
-  (let ((project (projectile-project-name)))
-    (if (member project (pyenv-mode-versions))
-        (pyenv-mode-set project)
-      (pyenv-mode-unset))))
+(use-package elpy
+  :after python
+  :ensure t
+  :config
+  (elpy-enable)
+  (setq elpy-rpc-python-command "python")
+  ;; (defalias 'workon 'pyvenv-workon)
+  ;; use flycheck instead of flymake
+  (add-hook 'elpy-mode-hook
+            '(lambda ()
+               (when (eq major-mode 'python-mode)
+                 (add-hook 'before-save-hook 'elpy-black-fix-code))))
+  (when (load "flycheck" t t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+  (electric-indent-local-mode -1)
+  (delete 'elpy-module-highlight-indentation elpy-modules)
 
-(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+  (defun ha/elpy-goto-definition ()
+    (interactive)
+    (condition-case err
+        (elpy-goto-definition)
+      ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
 
-(use-package pipenv
-  :hook (python-mode . pipenv-mode)
-  :init
-  (setq
-   pipenv-projectile-after-switch-function
-   #'pipenv-projectile-after-switch-extended))
+  :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+                             ha/elpy-goto-definition))
+)
 
-  (use-package jedi
-   :ensure t
-   :config
-   (use-package company-jedi
-     :ensure t
-     :init
-     (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-     (setq company-jedi-python-bin "python"))
-   (setq jedi:setup-keys t)
-   (setq jedi:complete-on-dot t)
-   (add-hook 'python-mode-hook 'jedi:setup)
-   (add-to-list 'company-backends 'company-jedi))
+(use-package sphinx-doc
+  :ensure t
+)
+
+(use-package format-sql
+  :ensure t
+)
+
+(use-package pygen
+  :ensure t
+  :hook ((pthon-mode-hook . pygen-mode))
+)
+
+(use-package company-jedi
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-jedi)
+  (with-eval-after-load 'jedi-core
+  (dolist (hook '(pyvenv-post-activate-hooks pyvenv-post-deactivate-hooks))
+    (add-hook hook                  ; jedi
+              (lambda ()
+                (if (and pyvenv-virtual-env
+                         (not (member pyvenv-virtual-env jedi:server-args))
+                         (not (file-remote-p pyvenv-virtual-env)))
+                    (setq jedi:server-args (list "--virtual-env" pyvenv-virtual-env))
+                  (setq jedi:server-args nil))
+                (jedi:stop-server))))))
+
+(use-package poetry
+  :ensure t
+  :config
+  (add-hook 'elpy-mode-hook 'poetry-tracking-mode))
+
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -550,8 +565,11 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(debug-on-error t)
  '(package-selected-packages
-   '(jedi-direx lsp-jedi blacken pipenv flycheck-pycheckers pyenv-mode use-package spacemacs-theme smooth-scrolling smart-tabs-mode py-autopep8 projectile pdf-tools no-littering multiple-cursors multi-line move-text magit flycheck flx-ido elpy company-jedi auctex))
+   '(bug-hunter format-sql pygen sphinx-doc magit-todos paradox company-jedi poetry smooth-scrolling pdf-tools multi-line move-text magit flx-ido))
+ '(paradox-automatically-star t)
+ '(poetry-tracking-mode t)
  '(pyenv-mode t))
 
 
