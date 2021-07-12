@@ -41,7 +41,6 @@
 
 (require 'paradox)
 (paradox-enable)
-(setq paradox-github-token "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")
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;      Appearance/Miscellaneous     ;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
