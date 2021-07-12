@@ -4,6 +4,11 @@
 
 <#+begin_quote
 Original copied from https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165
+gzm to create cursors at all matches for the word at point (possibly narrowing the buffer first);
+gzd to create a cursor at point and move to the next match (and gzD to create and move to the previous match);
+gzj to create a cursor at point and move to the next line (and gzk to create and move to the previous line); or
+gzz to create a cursor at point.
+
 SPC
     SPC: find file
     , switch buffer
@@ -18,6 +23,7 @@ SPC
     O insert mode in a new line before line at point
     A insert mode (append mode) at end of line
     ~ toggle last popup
+
     TAB workspace
         TAB Display tab bar
         . switch workspace
