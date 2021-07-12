@@ -2,7 +2,7 @@
 
 * Doom Emacs Cheatsheet
 
-<#+begin_quote
+#+begin_quote
 Original copied from https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165
 gzm to create cursors at all matches for the word at point (possibly narrowing the buffer first);
 gzd to create a cursor at point and move to the next match (and gzD to create and move to the previous match);
@@ -18,6 +18,9 @@ SPC
     < switch buffer
     ` eval
     u universal arg
+    d delete (cut)
+    y copy
+    p paste
     x pop up scratch
     o insert mode in a new line after line at point
     O insert mode in a new line before line at point
@@ -199,4 +202,3 @@ SPC
         w next
         | set width
 #+end_quote
-*
