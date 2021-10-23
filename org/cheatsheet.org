@@ -3,7 +3,80 @@
 * Doom Emacs Cheatsheet
 
 #+begin_quote
-Original copied from https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165
+Original copied from https://gist.github.com/hjertnes/9e14416e8962ff5f03c6b9871945b165g
+
+Motion: http://vimdoc.sourceforge.net/htmldoc/motion.html
+
+Operators are generally used to delete or
+change text. The following operators are available:
+
+    c   change
+    d   delete
+    y   yank into register (does not change the text)
+    ~   swap case (only if 'tildeop' is set)
+    g~  swap case
+    gu  make lowercase
+    gU  make uppercase
+    !   filter through an external program
+    =   filter through 'equalprg' or C-indenting if empty
+    gq  text formatting
+    g?  ROT13 encoding
+    >   shift right
+    <   shift left
+    zf  define a fold
+    g@  call function set with the 'operatorfunc' option
+
+Basic moving:
+    h  left
+    l  right
+    j  up line
+    k  down line
+    e  forward to end of word
+    w  forward to begin of word
+    b  backward to begin of word
+    0  start of line
+    $  end of line
+    gg start of file
+    G  end of file
+    H  start of screen
+    L  end of screen
+    M  middle of screen
+    ^  first no-blank char of line
+    g_ last no-blank char of line
+    g0 start of line (wrap-wise)
+    g$ end of line (wrap-wise)
+    gm middle of line (wrap-wise)
+    |  move to col (better used with a number, like g does for line)
+    f{char} [count] occurrence of {char} to the right
+    F{char} [count] occurrence of {char} to the left
+    t{char} like f, but stops before
+    T{char} like F, but stops after
+    ;  repeat last f, F, t, T [count] times
+    ,  repeat last f, F, t, T [count] times in the opposite direction
+    (  [count] sentences backward
+    )  [count] sentences forward
+    {  [count] paragraph backward
+    }  [count] paragraph forward
+    %  to matching ([{<>}])
+
+v  selects stuff. The following modifiers apply:
+    a  selects delimiters (like <{[("''")]}>)
+    i  selects only content
+    for the two above:
+        w  selects word
+        s  selects sentence
+        p  selects paragraph
+        [  a [ block
+        {  a { block
+        (  a ( block
+        <  a < block
+        "  a quote
+        '  a quote
+        `  a quote
+
+Of course, those can also be used with stuff like delete (d)
+by the way, dd deletes only the current line :)
+
 gzm to create cursors at all matches for the word at point (possibly narrowing the buffer first);
 gzd to create a cursor at point and move to the next match (and gzD to create and move to the previous match);
 gzj to create a cursor at point and move to the next line (and gzk to create and move to the previous line); or

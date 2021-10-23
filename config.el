@@ -11,6 +11,7 @@
 (setq user-full-name "Sreela Das"
       user-mail-address "sreela.das@gmail.com")
 
+(set-keyboard-coding-system nil)
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -21,22 +22,28 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;; (setq doom-font (font-spec :family "monospace" :size 10 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 10))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
+(setq evil-move-beyond-eol t)
+(setq evil-move-cursor-back nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/org")
-
+(setq org-directory "~/code/org")
+(setq org-indent-indentation-per-level 4)
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+(require 'multiple-cursors)
+(global-set-key (kbd "C->")  'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -60,9 +67,10 @@
 (setq
     org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿" "◉" "○" "✸" "✿")
 )
-(setq doom-font (font-spec :family "Fira Code" :size 18)
-      ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 18)
-      doom-variable-pitch-font (font-spec :family "Alegreya" :size 18))
+(setq doom-font (font-spec :family "Fira Code" :size 10)
+      ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 10)
+      ;;doom-variable-pitch-font (font-spec :family "Alegreya" :size 10)
+)
 
 ;; Maximize emacs on load
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -85,19 +93,32 @@
           (search . " %i %-12:c")))
   (setq org-agenda-include-diary t))
 
-;; Add holidays to Agenda
-(package! indian-holidays)
-(package! canadian-holidays)
-
-
 ;; Org Agenda
-(package! org-super-agenda)
-(use-package! org-super-agenda
-  :after org-agenda
-  :config
-  (setq org-super-agenda-groups '((:auto-dir-name t)))
-  (org-super-agenda-mode))
+;;(package! org-super-agenda)
+;;(use-package! org-super-agenda
+;;  :after org-agenda
+;;  :config
+;;  (setq org-super-agenda-groups '((:auto-dir-name t)))
+;;  (org-super-agenda-mode))
 
+;; Org fancy-priorities-list
+(after! org-fancy-priorities
+  (setq
+
+   org-priority-highest '?A
+   org-priority-lowest  '?E
+   org-priority-default '?C
+   org-priority-faces
+   '((
+      (?A . (:foreground "firebrick3" :weight bold))
+      (?B . (:foreground "goldenrod3" :weight bold))
+      (?C . (:foreground "orange3"))
+      (?D . (:foreground "MediumPurple3"))
+      (?E . (:foreground "RosyBrown3"))
+      )))
+   org-fancy-priorities-list '("❗" "⚑" "⬆" "■" "⬇" "☕")
+   (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
+)
 ;; Org Archive
 (use-package! org-archive
   :after org
@@ -110,9 +131,16 @@
   (org-clock-persistence-insinuate))
 
 ;; Org Capture Templates
-;; (after! org
-;;   (add-to-list 'org-capture-templates
-;;              '(("l" "learn" entry
-;;                (file+headline +org-capture-todo-file "learn")
-;;                "* TODO %?\n :PROPERTIES:\n :CATEGORY: learn\n :END:\n %i\n"
-;;                :prepend t :kill-buffer t))
+ (after! org
+   (add-to-list 'org-capture-templates
+              '(("l" "learn" entry
+                (file+headline +org-capture-todo-file "learn")
+                "* TODO %?\n :PROPERTIES:\n :CATEGORY: learn\n :END:\n %i\n"
+                :prepend f :kill-buffer t))
+    (add-to-list 'org-capture-templates
+              '(("q" "open questions" entry
+                (file+headline +org-capture-todo-file "open_questions")
+                "* TODO %?\n :SUBDOMAIN:\n :END:\n %i\n"
+                :prepend t :kill-buffer t))
+
+              )))
