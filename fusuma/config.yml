@@ -1,0 +1,31 @@
+swipe:
+  3:
+    left:
+      command: 'xdotool key alt+Shift+Tab'
+    right:
+      command: 'xdotool key alt+Tab'
+    up:
+      command: 'xdotool key super'
+    down:
+      command: 'xdotool key super'
+  4:
+    up:
+      command: 'xdotool key super+m'
+    down:
+      command: 'xdotool key super+m'
+pinch:
+  in:
+    command: "xdotool keydown ctrl click 4 keyup ctrl" # Zoom in
+    threshold: 0.1
+  out:
+    command: "xdotool keydown ctrl click 5 keyup ctrl" # Zoom out
+    threshold: 0.1
+
+threshold:
+  swipe: 0.5
+  pinch: 0.5
+
+interval:
+  swipe: 1
+  pinch: 1
+
