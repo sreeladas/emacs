@@ -16,9 +16,28 @@ cp -r ./systemd/* ~/.config/systemd/user/
 cp ./autostart/emacs.desktop ~/.config/autostart/
 
 # Install python, poetry and jupyter
-sudo apt install python3
-sudo apt install python3-pip
-sudo apt install poetry
+sudo apt-get install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+cd ~/.pyenv && src/configure && make -C src
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zprofile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zprofile
+echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
+echo 'eval "$(pyenv init --path)"' >> ~/.profile
+
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+
+source ~/.zshrc
+pyenv install 3.8.12
+pyenv install 3.9.9
+pyenv global 3.9.9
+
+pip install poetry
 python3 -m pip install --upgrade pip
 python3 -m pip install jupyter
 
@@ -102,10 +121,7 @@ POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(dir virtualenv vcs)'
 append_to_zshrc '# This shows the status, background jobs and history time
 POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)'
 
-append_to_zshrc '# This puts the cursor on a new which is useful if you have long directory names or long git repo names
-POWERLEVEL10K_PROMPT_ON_NEWLINE=true'
-
-append_to_zshrc "# General alias section 
+append_to_zshrc "# General alias section
 # Useful aliases for docker
 alias poadd='poetry add'
 alias poins='poetry install'
@@ -113,11 +129,7 @@ alias posh='poetry shell'
 alias pore='poetry remove'
 alias ins='sudo apt install'
 alias upgrage='sudo apt update && sudo apt upgrade'
-alias dbuild='docker build -t api:latest .'
-alias drun='docker run -p 8080:8080 api:latest'
-alias drun_with_volumes='docker run -p 8080:8080 -v $PWD api:latest'
-alias dps='docker ps'
-alias dexec='function docker_exec(){docker exec -it $1 /bin/bash}; docker_exec'
+
 # display path with each directory in a new line
 alias path='echo -e \${PATH//:/\\\n}'
 alias ~='cd ~'
@@ -125,9 +137,7 @@ alias ..='cd ../'
 alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
-
-# git aliases
-alias git_pr_branch='function pr_branch(){git fetch; git checkout $1; git pull origin $1}; pr_branch'"
+"
 
 # Add personal packages
 # NOTE: These instructions only work for 64 bit Debian-based
@@ -144,6 +154,9 @@ echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" |\
 # 3. Update your package database and install signal
 sudo apt update && sudo apt install signal-desktop
 
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Add fusuma for gesture inputs
 sudo gpasswd -a $USER input
