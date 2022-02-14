@@ -1,3 +1,6 @@
+# Mac OS
+**.DS_Store
+
 # exclude everything except directory foo/bar
 auctex-12.1.tar.gz
 *~

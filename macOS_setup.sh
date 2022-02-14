@@ -27,7 +27,7 @@ append_to_zshrc() {
 REPLY=''
 echo -n "Would you like to install pyenv from Homebrew? This step will also install the currently recommended version of python (3.8.9) as the global default (see https://github.com/pyenv/pyenv ) (y/n):  "
 read REPLY
-if [[ $REPLY =~ ^[1]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]]
 then
     brew install pyenv
     pyenv install 3.8.12
@@ -57,21 +57,11 @@ fi
 echo "\n"
 
 
-# Installs sequel-pro, for environment management
-REPLY=''
-echo -n "Would you like to install sequel-pro for database management and SQL editing (see more at https://www.sequelpro.com/ )? (y/n):  "
-read REPLY
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    brew install --cask sequel-pro
-    echo "\n"
-fi
-
 # Installs google cloud sdk. Cloud SDK give you a neat interface for interacting with google
 REPLY=''
 echo -n "Would you like to install google cloud sdk from Homebrew? (see https://cloud.google.com/sdk/docs/install ) (y/n):  "
 read REPLY
-if [[ $REPLY =~ ^[1]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]]
 then
     brew install --cask google-cloud-sdk
 fi
