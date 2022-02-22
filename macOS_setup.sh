@@ -5,7 +5,7 @@
 # Some recommended customizations for those without stronger opinions
 
 # Installs homebrew if not found, a command line package manager for macOS (similar to those for linux, or e.g. pip for python)
-command -v brew >/dev/null 2>&1 || {
+command -v brew /dev/null 2>&1 || {
     echo >&2 "Homebrew not found, Installing now"; \
         /usr/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
 }
@@ -84,7 +84,7 @@ echo -n "Would you like to install poetry for local python environment managemen
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    pip install poetry
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
     echo "\n"
 fi
 
