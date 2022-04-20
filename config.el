@@ -10,6 +10,7 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Sreela Das"
       user-mail-address "sreela.das@gmail.com")
+(add-to-list 'load-path "~/.poetry/bin/")
 
 (set-keyboard-coding-system nil)
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -93,6 +94,13 @@
           (search . " %i %-12:c")))
   (setq org-agenda-include-diary t))
 
+;;;; Mouse scrolling in terminal emacs
+(unless (display-graphic-p)
+  ;; activate mouse-based scrolling
+  (xterm-mouse-mode 1)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+  )
 ;; Org Agenda
 ;;(package! org-super-agenda)
 ;;(use-package! org-super-agenda
