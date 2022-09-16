@@ -99,3 +99,4 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 (package! benchmark-init)
+(package! multiple-cursors)

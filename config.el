@@ -59,8 +59,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/code/org")
-(setq org-indent-indentation-per-level 4)
+;; (setq org-directory "~/code/org")
+;; (setq org-indent-indentation-per-level 4)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -119,17 +119,6 @@
 ;; Hide Emphasis markers in org-mode markup
 (after! org (setq org-hide-emphasis-markers t))
 
-
-;; Org agenda display
-(after! org-agenda
-  (setq org-agenda-prefix-format
-        '((agenda . " %i %-12:c%?-12t% s")
-          ;; Indent todo items by level to show nesting
-          (todo . " %i %-12:c%l")
-          (tags . " %i %-12:c")
-          (search . " %i %-12:c")))
-  (setq org-agenda-include-diary t))
-
 ;;;; Mouse scrolling in terminal emacs
 (unless (display-graphic-p)
   ;; activate mouse-based scrolling
@@ -163,28 +152,4 @@
    org-fancy-priorities-list '("❗" "⚑" "⬆" "■" "⬇" "☕")
    (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
 )
-;; Org Archive
-(use-package! org-archive
-  :after org
-  :config
-  (setq org-archive-location "archive.org::datetree/"))
-
-;; Org Clock
-(after! org-clock
-  (setq org-clock-persist t)
-  (org-clock-persistence-insinuate))
-
-;; Org Capture Templates
- (after! org
-   (add-to-list 'org-capture-templates
-              '(("l" "learn" entry
-                (file+headline +org-capture-todo-file "learn")
-                "* TODO %?\n :PROPERTIES:\n :CATEGORY: learn\n :END:\n %i\n"
-                :prepend f :kill-buffer t))
-    (add-to-list 'org-capture-templates
-              '(("q" "open questions" entry
-                (file+headline +org-capture-todo-file "open_questions")
-                "* TODO %?\n :SUBDOMAIN:\n :END:\n %i\n"
-                :prepend t :kill-buffer t))
-
-              )))
+(setq-default require-final-newline t)
