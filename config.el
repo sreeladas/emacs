@@ -10,7 +10,7 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Sreela Das"
       user-mail-address "sreela.das@gmail.com")
-(add-to-list 'load-path "~/.poetry/bin/")
+(add-to-list 'load-path "~/.local/bin/")
 
 (set-keyboard-coding-system nil)
 
@@ -153,3 +153,12 @@
    (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
 )
 (setq-default require-final-newline t)
+(setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
+(setq debug-on-error t)
+
+;; MacOS add path vars to emacs shell
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+(exec-path-from-shell-copy-env "PYTHONPATH")

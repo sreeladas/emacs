@@ -100,3 +100,4 @@
 ;(unpin! t)
 (package! benchmark-init)
 (package! multiple-cursors)
+(package! exec-path-from-shell)
