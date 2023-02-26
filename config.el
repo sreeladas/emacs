@@ -106,7 +106,7 @@
 )
 (setq doom-font (font-spec :family "Fira Code" :size 10)
       doom-variable-pitch-font (font-spec :family "ETBembo" :size 10)
-      doom-variable-pitch-font (font-spec :family "Alegreya" :size 10)
+      doom-variable-pitch-font (font-spec :family "AlegreyaSans" :size 10)
 )
 
 ;; Maximize emacs on load
