@@ -110,6 +110,10 @@ done;
 
 popd
 
+append_to_zshrc '
+bind \'"\e[A":history-search-backward\'
+bind \'"\e[B":history-search-forward\'
+'
 append_to_zshrc '# Sets plugins for oh-my-zsh with auto-complete for docker and git info in the
 plugins=(git docker docker-compose)'
 append_to_zshrc '# Sets a theme for iterm2 that detects and displays the git branch and status of working directory
