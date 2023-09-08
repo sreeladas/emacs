@@ -111,7 +111,8 @@ echo -n "Would you like to install oh-my-zsh for command line helper functions (
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    brew install zsh zsh-completions zsh-syntax-highlighting
+    brew install zsh-completions zsh-syntax-highlighting
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     echo "\n"
 fi
 
@@ -176,52 +177,35 @@ POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histo
 
 fi
 
+brew install cmake aspell editorconfig jq grip graphviz gnuplot shfmt shellcheck
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code
+
 REPLY=''
 echo -n "Would you like to some common aliases to your terminal? These are basically shortcuts for command line commands. (read more at https://www.geeksforgeeks.org/alias-command-in-linux-with-examples/ ) (y/n):  "
 read REPLY
 if [[ $REPLY =~ ^[Yy]$ ]]
 then    
 append_to_zshrc "# General alias section 
-_dbuild () {
-        docker build -t ${PWD##*/}:latest
-}
-_drun () {
-        docker run -name ${PWD##*/} -p 8080:8080 ${PWD##*/}:latest
-}
-_dexec () {
-       docker exec -it ${PWD##*/} /bin/bash
-}
-
 # Useful aliases for docker
-alias dbuild='_dbuild'
-alias drun='_drun'
-alias dps='docker container ls'
-alias dexec='_dexec'
-
 # display path with each directory in a new line
-alias path='echo -e \${PATH//:/\\\n}'
+alias path='echo -e ${PATH//:/\\\n}'
 alias ~='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 
-# poetry aliases to install a package, enter a shell, remove a package
-alias poadd='poetry add'
-alias poins='poetry install'
-alias posh='poetry shell'
-alias pore='poetry remove'
-
 pathmunge () {
-        if ! echo '$PATH' | grep -Eq '(^|:)$1($|:)' ; then
-           if [ '$2' = 'after' ] ; then
-              PATH='$PATH:${1:A}'
-           else
-              PATH='${1:A}:$PATH'
-              echo '\n'
-fi
-        echo '\n'
-fi
+        if [[ \"${path[(ie)${1:A}]}\" -gt \"${#path}\" ]] ; then
+            if [ \"$2\" = \"after\" ] ; then
+                PATH=\"$PATH:${1:A}\"
+            else
+                PATH=\"${1:A}:$PATH\"
+                echo '\n'
+            fi
+            echo '\n'
+        fi
 }
 "
 fi
