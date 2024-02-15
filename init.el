@@ -35,7 +35,7 @@
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       (ligatures +fira)  ; ligatures and symbols to make your code pretty again
+       (ligatures +fira)   ; ligatures and symbols to make your code pretty again
        minimap             ; show a map of the code on the side
        (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -80,7 +80,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +aspell)   ; tasing you for misspelling mispelling
+       (spell +aspell)     ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -97,7 +97,7 @@
        (magit +forge)      ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       pdf               ; pdf enhancements
+       pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
@@ -139,7 +139,7 @@
        ;;idris             ; a language you can depend on
        (json +lsp)         ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;(latex +latexmk +lsp) ; writing papers in Emacs has never been so fun
@@ -165,16 +165,16 @@
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
-	    +anaconda-mode
-	    +lsp
-            +poetry
-	    +pyenv
-	    +py-isort
-	    +pyimport
-	    +pyright
-	    +python-pytest
-            )
-			   ; beautiful is better than ugly
+	+anaconda-mode
+	+lsp
+        +poetry
+	+pyenv
+	+py-isort
+	+pyimport
+	+pyright
+	+python-pytest
+        )
+                           ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -183,8 +183,8 @@
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        (scala
-            +lsp
-            +tree-sitter)  ; java, but good
+        +lsp
+        +tree-sitter)      ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        (sh +lsp)           ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
