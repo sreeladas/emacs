@@ -35,7 +35,7 @@
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       (ligatures +fira)   ; ligatures and symbols to make your code pretty again
+       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
        minimap             ; show a map of the code on the side
        (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -66,7 +66,7 @@
        word-wrap           ; soft wrapping with language-aware indent
 
        :emacs
-       dired               ; making dired pretty [functional]
+       (dired +dirvish)               ; making dired pretty [functional]
        electric            ; smarter, keyword-based electric-indent
        ibuffer             ; interactive buffer management
        (undo +tree)        ; persistent, smarter undo for your inevitable mistakes
@@ -79,13 +79,13 @@
        vterm               ; the best terminal emulation in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
-       (spell +aspell)     ; tasing you for misspelling mispelling
+       (syntax +flymake +icons)              ; tasing you for every semicolon you forget
+       (spell +aspell)   ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       debugger            ; FIXME stepping through code, to help you add bugs
+       (debugger +lsp)            ; FIXME stepping through code, to help you add bugs
        ;;direnv
        (docker +lsp)
        editorconfig        ; let someone else argue about tabs vs spaces
@@ -101,7 +101,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
-       terraform           ; infrastructure as code
+       (terraform +lsp)           ; infrastructure as code
        tree-sitter         ; syntax and parsing, sitting in a tree...
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
@@ -132,16 +132,16 @@
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;;(go +lsp)         ; the hipster dialect
+       ;;(go +lsp +tree-sitter)      ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       (json +lsp)         ; At least it ain't XML
-       ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
+       (json +lsp +tree-sitter)         ; At least it ain't XML
+       ;;(java +lsp +tree-sitter)       ; the poster child for carpal tunnel syndrome
+       (javascript +lsp +tree-sitter)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
-       ;;kotlin            ; a better, slicker Java(Script)
+       ;;(kotlin +lsp)            ; a better, slicker Java(Script)
        ;;(latex +latexmk +lsp) ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
@@ -161,11 +161,10 @@
         +present
         +pretty
         +roam2)
-       (php +hack +lsp)    ; perl's insecure younger brother
+       ;;(php +hack +lsp +tree-sitter)    ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
-	+anaconda-mode
 	+lsp
         +poetry
 	+pyenv
@@ -173,18 +172,17 @@
 	+pyimport
 	+pyright
 	+python-pytest
-        )
-                           ; beautiful is better than ugly
+        )                  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        rest                ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       (scala
-        +lsp
-        +tree-sitter)      ; java, but good
+       (rust +lsp +tree-sitter)                ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;; (scala
+       ;;      +lsp
+       ;;      +tree-sitter)  ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        (sh +lsp)           ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
@@ -192,7 +190,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
-       (yaml +lsp)         ; JSON, but readable
+       (yaml +lsp +tree-sitter)         ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email

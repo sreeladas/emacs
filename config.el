@@ -93,7 +93,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
+(setq lsp-rust-server 'rust-analyzer)
 (require 'multiple-cursors)
 (global-set-key (kbd "C->")  'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -105,8 +105,7 @@
  org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿" "◉" "○" "✸" "✿")
  )
 (setq doom-font (font-spec :family "Fira Code" :size 10)
-      doom-variable-pitch-font (font-spec :family "ETBembo" :size 10)
-      doom-variable-pitch-font (font-spec :family "Alegreya" :size 10)
+      doom-variable-pitch-font (font-spec :family "Overpass" :size 10)
       )
 
 ;; Maximize emacs on load
@@ -261,3 +260,5 @@
       :desc "dap breakpoint condition"   "c" #'dap-breakpoint-condition
       :desc "dap breakpoint hit count"   "h" #'dap-breakpoint-hit-condition
       :desc "dap breakpoint log message" "l" #'dap-breakpoint-log-message)
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
