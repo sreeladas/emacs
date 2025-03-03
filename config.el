@@ -11,6 +11,7 @@
 (setq user-full-name "Sreela Das"
       user-mail-address "sreela.das@gmail.com")
 (add-to-list 'load-path "~/.local/bin/")
+(add-to-list 'load-path "~/.local/pyenv/")
 
 (set-keyboard-coding-system nil)
 
@@ -93,7 +94,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(setq lsp-rust-server 'rust-analyzer)
+
 (require 'multiple-cursors)
 (global-set-key (kbd "C->")  'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -105,7 +106,8 @@
  org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿" "◉" "○" "✸" "✿")
  )
 (setq doom-font (font-spec :family "Fira Code" :size 10)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 10)
+      doom-variable-pitch-font (font-spec :family "ETBembo" :size 10)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 10)
       )
 
 ;; Maximize emacs on load
@@ -133,27 +135,6 @@
 ;;  (setq org-super-agenda-groups '((:auto-dir-name t)))
 ;;  (org-super-agenda-mode))
 
-;; Org fancy-priorities-list
-(after! org-fancy-priorities
-  (setq
-
-   org-priority-highest '?A
-   org-priority-lowest  '?E
-   org-priority-default '?C
-   org-priority-faces
-   '((
-      (?A . (:foreground "firebrick3" :weight bold))
-      (?B . (:foreground "goldenrod3" :weight bold))
-      (?C . (:foreground "orange3"))
-      (?D . (:foreground "MediumPurple3"))
-      (?E . (:foreground "RosyBrown3"))
-      )))
-  org-fancy-priorities-list '("❗" "⚑" "⬆" "■" "⬇" "☕")
-  (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
-  )
-(setq-default require-final-newline t)
-(setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
-(setq debug-on-error t)
 
 ;; MacOS add path vars to emacs shell
 (when (memq window-system '(mac ns x))
@@ -162,7 +143,7 @@
   (exec-path-from-shell-initialize))
 (exec-path-from-shell-copy-env "PYTHONPATH")
 (setq auth-sources '("~/.authinfo"))
-(setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=yes")
+;;(setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=yes")
 
 
 ;; Codeium
@@ -190,8 +171,8 @@
   ;; codeium-completion-at-point is autoloaded, but you can
   ;; optionally set a timer, which might speed up things as the
   ;; codeium local language server takes ~0.2s to start up
-  ;; (add-hook 'emacs-startup-hook
-  ;;  (lambda () (run-with-timer 0.1 nil #'codeium-init)))
+  (add-hook 'emacs-startup-hook
+            (lambda () (run-with-timer 0.1 nil #'codeium-init)))
 
   ;; :defer t ;; lazy loading, if you want
   :config
@@ -226,39 +207,16 @@
     (codeium-utf8-byte-length
      (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
   (setq codeium/document/text 'my-codeium/document/text)
-  (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
+  (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset)
+  )
+(add-hook 'javascript-mode-hook 'rainbow-mode)
+
+;; gptel for AI completion
+(use-package! gptel
+  :config
+  (setq! gptel-api-key "your key"))
 
 
-;;; PYTHON DEBUGGER
-(map! :map dap-mode-map
-      :leader
-      :prefix ("d" . "dap")
-      ;; basics
-      :desc "dap next"          "n" #'dap-next
-      :desc "dap step in"       "i" #'dap-step-in
-      :desc "dap step out"      "o" #'dap-step-out
-      :desc "dap continue"      "c" #'dap-continue
-      :desc "dap hydra"         "h" #'dap-hydra
-      :desc "dap debug restart" "r" #'dap-debug-restart
-      :desc "dap debug"         "s" #'dap-debug
-
-      ;; debug
-      :prefix ("dd" . "Debug")
-      :desc "dap debug recent"  "r" #'dap-debug-recent
-      :desc "dap debug last"    "l" #'dap-debug-last
-
-      ;; eval
-      :prefix ("de" . "Eval")
-      :desc "eval"                "e" #'dap-eval
-      :desc "eval region"         "r" #'dap-eval-region
-      :desc "eval thing at point" "s" #'dap-eval-thing-at-point
-      :desc "add expression"      "a" #'dap-ui-expressions-add
-      :desc "remove expression"   "d" #'dap-ui-expressions-remove
-
-      :prefix ("db" . "Breakpoint")
-      :desc "dap breakpoint toggle"      "b" #'dap-breakpoint-toggle
-      :desc "dap breakpoint condition"   "c" #'dap-breakpoint-condition
-      :desc "dap breakpoint hit count"   "h" #'dap-breakpoint-hit-condition
-      :desc "dap breakpoint log message" "l" #'dap-breakpoint-log-message)
-(after! dap-mode
-  (setq dap-python-debugger 'debugpy))
+;; Editorconfig
+(after! editorconfig
+  (add-to-list 'editorconfig-indentation-alist '(coffee-mode coffee-tab-width)))
